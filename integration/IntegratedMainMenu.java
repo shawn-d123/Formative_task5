@@ -141,6 +141,11 @@ public class IntegratedMainMenu {
             System.out.println("----------------------------------------");
             System.out.println("Task interrupted: " + taskName);
             System.out.println("Returning to main menu.");
+        } catch (Throwable unexpected) {
+            System.out.println("----------------------------------------");
+            System.out.println("Unexpected launcher error for task: " + taskName);
+            System.out.println("Reason: " + unexpected.getClass().getSimpleName() + " - " + unexpected.getMessage());
+            System.out.println("Returning to main menu.");
         }
     }
 

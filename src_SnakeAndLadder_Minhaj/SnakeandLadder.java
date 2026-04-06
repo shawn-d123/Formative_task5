@@ -1,67 +1,72 @@
-public class Player {
+package src_SnakeAndLadder_Minhaj;
+
+import swiftbot.*;
+
+import java.io.FileWriter;
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import java.util.Scanner;
+
+class Player {
     private final String name;
     private int position;
-    private boolean isHuman;
+    private final boolean isHuman;
 
-    public Player(String name, boolean isHuman) {
+    Player(String name, boolean isHuman) {
         this.name = name;
         this.isHuman = isHuman;
         this.position = 1; // start at square 1
     }
 
-    public String getName() {
+    String getName() {
         return name;
     }
 
-    public int getPosition() {
+    int getPosition() {
         return position;
     }
 
-    public void setPosition(int position) {
+    void setPosition(int position) {
         this.position = position;
     }
 
-    public boolean isHuman() {
+    boolean isHuman() {
         return isHuman;
     }
 }
 
-
-public class SnakeLadder {
+class SnakeLadder {
     private final int start;
     private final int end;
     private final boolean isSnake;
 
-    public SnakeLadder(int start, int end, boolean isSnake) {
+    SnakeLadder(int start, int end, boolean isSnake) {
         this.start = start;
         this.end = end;
         this.isSnake = isSnake;
     }
 
-    public int getStart() {
+    int getStart() {
         return start;
     }
 
-    public int getEnd() {
+    int getEnd() {
         return end;
     }
 
-    public boolean isSnake() {
+    boolean isSnake() {
         return isSnake;
     }
 }
 
-
-
-
-import java.util.ArrayList;
-import java.util.List;
-
-public class Board {
+class Board {
     private final int size = 25;
     private final List<SnakeLadder> snakesAndLadders;
 
-    public Board() {
+    Board() {
         snakesAndLadders = new ArrayList<>();
         // Example configuration (you can adjust if needed)
         snakesAndLadders.add(new SnakeLadder(14, 7, true));  // snake
@@ -70,79 +75,72 @@ public class Board {
         snakesAndLadders.add(new SnakeLadder(8, 20, false)); // ladder
     }
 
-    public int getSize() {
+    int getSize() {
         return size;
     }
 
-    public int applySnakeOrLadder(int position) {
-        for (SnakeLadder sl : snakesAndLadders) {
-            if (sl.getStart() == position) {
-                return sl.getEnd();
+    int applySnakeOrLadder(int position) {
+        for (SnakeLadder snakeLadder : snakesAndLadders) {
+            if (snakeLadder.getStart() == position) {
+                return snakeLadder.getEnd();
             }
         }
         return position;
     }
 
-    public SnakeLadder getSnakeLadderAt(int position) {
-        for (SnakeLadder sl : snakesAndLadders) {
-            if (sl.getStart() == position) {
-                return sl;
+    SnakeLadder getSnakeLadderAt(int position) {
+        for (SnakeLadder snakeLadder : snakesAndLadders) {
+            if (snakeLadder.getStart() == position) {
+                return snakeLadder;
             }
         }
         return null;
     }
 }
 
-// NOTE: Adjust the package/import to match your project setup.
-import swiftbot.api.SwiftBotAPI;
-
-public class SwiftBotController {
-
+class SwiftBotController {
     private final SwiftBotAPI bot;
     private Orientation orientation;
 
-    private static final double SQUARE_DISTANCE_METRES = 0.25; // 25 cm
+    private static final int MOVE_SPEED = 50;
+    private static final int MOVE_ONE_SQUARE_TIME_MS = 1000;
+    private static final int TURN_SPEED = 40;
+    private static final int TURN_90_TIME_MS = 650;
 
-    public enum Orientation {
+    enum Orientation {
         NORTH, EAST, SOUTH, WEST
     }
 
-    public SwiftBotController() {
+    SwiftBotController() {
         this.bot = SwiftBotAPI.INSTANCE;
         this.orientation = Orientation.NORTH;
     }
 
-    public void setOrientation(Orientation orientation) {
-        this.orientation = orientation;
-    }
-
-    public Orientation getOrientation() {
-        return orientation;
-    }
-
-    public void moveOneSquare() {
+    void moveOneSquare() {
         try {
-            bot.setAllLED(0, 255, 0); // green
-            bot.move(SQUARE_DISTANCE_METRES, 0.2);
-            bot.stop();
-            bot.setAllLED(0, 0, 0);
+            bot.fillUnderlights(new int[]{0, 255, 0}); // green
+            bot.move(MOVE_SPEED, MOVE_SPEED, MOVE_ONE_SQUARE_TIME_MS);
+            bot.stopMove();
+            bot.disableUnderlights();
         } catch (Exception e) {
             System.out.println("Error moving SwiftBot: " + e.getMessage());
         }
     }
 
-    public void turnLeft() {
+    void turnLeft() {
         try {
-            bot.turn(-90, 0.2);
+            bot.move(-TURN_SPEED, TURN_SPEED, TURN_90_TIME_MS);
+            bot.stopMove();
             updateOrientationLeft();
         } catch (Exception e) {
             System.out.println("Error turning left: " + e.getMessage());
         }
     }
 
-    public void turnRight() {
+    void turnRight() {
         try {
-            bot.turn(90, 0.2);
+            bot.move(TURN_SPEED, -TURN_SPEED, TURN_90_TIME_MS);
+            bot.stopMove();
             updateOrientationRight();
         } catch (Exception e) {
             System.out.println("Error turning right: " + e.getMessage());
@@ -167,31 +165,31 @@ public class SwiftBotController {
         }
     }
 
-    public void snakeLED() {
-        bot.setAllLED(255, 0, 0); // red
+    void snakeLED() {
+        bot.fillUnderlights(new int[]{255, 0, 0}); // red
         sleep(500);
-        bot.setAllLED(0, 0, 0);
+        bot.disableUnderlights();
     }
 
-    public void ladderLED() {
-        bot.setAllLED(0, 0, 255); // blue
+    void ladderLED() {
+        bot.fillUnderlights(new int[]{0, 0, 255}); // blue
         sleep(500);
-        bot.setAllLED(0, 0, 0);
+        bot.disableUnderlights();
     }
 
-    public void winLED() {
+    void winLED() {
         for (int i = 0; i < 3; i++) {
-            bot.setAllLED(0, 255, 0);
+            bot.fillUnderlights(new int[]{0, 255, 0});
             sleep(300);
-            bot.setAllLED(0, 0, 0);
+            bot.disableUnderlights();
             sleep(300);
         }
     }
 
-    public void normalMoveLED() {
-        bot.setAllLED(0, 255, 0);
+    void normalMoveLED() {
+        bot.fillUnderlights(new int[]{0, 255, 0});
         sleep(200);
-        bot.setAllLED(0, 0, 0);
+        bot.disableUnderlights();
     }
 
     private void sleep(long ms) {
@@ -202,142 +200,22 @@ public class SwiftBotController {
     }
 }
 
-
-// NOTE: Adjust the package/import to match your project setup.
-import swiftbot.api.SwiftBotAPI;
-
-public class SwiftBotController {
-
-    private final SwiftBotAPI bot;
-    private Orientation orientation;
-
-    private static final double SQUARE_DISTANCE_METRES = 0.25; // 25 cm
-
-    public enum Orientation {
-        NORTH, EAST, SOUTH, WEST
-    }
-
-    public SwiftBotController() {
-        this.bot = SwiftBotAPI.INSTANCE;
-        this.orientation = Orientation.NORTH;
-    }
-
-    public void setOrientation(Orientation orientation) {
-        this.orientation = orientation;
-    }
-
-    public Orientation getOrientation() {
-        return orientation;
-    }
-
-    public void moveOneSquare() {
-        try {
-            bot.setAllLED(0, 255, 0); // green
-            bot.move(SQUARE_DISTANCE_METRES, 0.2);
-            bot.stop();
-            bot.setAllLED(0, 0, 0);
-        } catch (Exception e) {
-            System.out.println("Error moving SwiftBot: " + e.getMessage());
-        }
-    }
-
-    public void turnLeft() {
-        try {
-            bot.turn(-90, 0.2);
-            updateOrientationLeft();
-        } catch (Exception e) {
-            System.out.println("Error turning left: " + e.getMessage());
-        }
-    }
-
-    public void turnRight() {
-        try {
-            bot.turn(90, 0.2);
-            updateOrientationRight();
-        } catch (Exception e) {
-            System.out.println("Error turning right: " + e.getMessage());
-        }
-    }
-
-    private void updateOrientationLeft() {
-        switch (orientation) {
-            case NORTH -> orientation = Orientation.WEST;
-            case WEST -> orientation = Orientation.SOUTH;
-            case SOUTH -> orientation = Orientation.EAST;
-            case EAST -> orientation = Orientation.NORTH;
-        }
-    }
-
-    private void updateOrientationRight() {
-        switch (orientation) {
-            case NORTH -> orientation = Orientation.EAST;
-            case EAST -> orientation = Orientation.SOUTH;
-            case SOUTH -> orientation = Orientation.WEST;
-            case WEST -> orientation = Orientation.NORTH;
-        }
-    }
-
-    public void snakeLED() {
-        bot.setAllLED(255, 0, 0); // red
-        sleep(500);
-        bot.setAllLED(0, 0, 0);
-    }
-
-    public void ladderLED() {
-        bot.setAllLED(0, 0, 255); // blue
-        sleep(500);
-        bot.setAllLED(0, 0, 0);
-    }
-
-    public void winLED() {
-        for (int i = 0; i < 3; i++) {
-            bot.setAllLED(0, 255, 0);
-            sleep(300);
-            bot.setAllLED(0, 0, 0);
-            sleep(300);
-        }
-    }
-
-    public void normalMoveLED() {
-        bot.setAllLED(0, 255, 0);
-        sleep(200);
-        bot.setAllLED(0, 0, 0);
-    }
-
-    private void sleep(long ms) {
-        try {
-            Thread.sleep(ms);
-        } catch (InterruptedException ignored) {
-        }
-    }
-}
-
-
-import java.io.FileWriter;
-import java.io.IOException;
-import java.time.LocalDateTime;
-import java.util.Random;
-import java.util.Scanner;
-
-public class Game {
-
+class Game {
     private final Board board;
     private final Player human;
     private final Player botPlayer;
     private final SwiftBotController controller;
     private final Random random;
     private final Scanner scanner;
-    private boolean modeOverride;
     private FileWriter logWriter;
 
-    public Game() {
+    Game() {
         this.board = new Board();
         this.human = new Player("Human", true);
         this.botPlayer = new Player("SwiftBot", false);
         this.controller = new SwiftBotController();
         this.random = new Random();
         this.scanner = new Scanner(System.in);
-        this.modeOverride = false;
         initLog();
     }
 
@@ -363,14 +241,12 @@ public class Game {
         }
     }
 
-    public void selectMode() {
+    void selectMode() {
         System.out.println("Select Mode: A = Normal, B = Override");
         String input = scanner.nextLine().trim().toUpperCase();
         if (input.equals("B")) {
-            modeOverride = true;
             log("Mode B (Override) selected.");
         } else {
-            modeOverride = false;
             log("Mode A (Normal) selected.");
         }
     }
@@ -381,7 +257,7 @@ public class Game {
         return roll;
     }
 
-    public void start() {
+    void start() {
         log("Initialising Snakes & Ladders game...");
         selectMode();
 
@@ -416,18 +292,18 @@ public class Game {
             current.setPosition(newPos);
 
             // Check snake or ladder
-            int afterSL = board.applySnakeOrLadder(newPos);
-            if (afterSL != newPos) {
-                SnakeLadder sl = board.getSnakeLadderAt(newPos);
-                if (sl != null && sl.isSnake()) {
-                    log("Snake! " + current.getName() + " moves down to " + afterSL);
+            int afterSnakeOrLadder = board.applySnakeOrLadder(newPos);
+            if (afterSnakeOrLadder != newPos) {
+                SnakeLadder snakeLadder = board.getSnakeLadderAt(newPos);
+                if (snakeLadder != null && snakeLadder.isSnake()) {
+                    log("Snake! " + current.getName() + " moves down to " + afterSnakeOrLadder);
                     controller.snakeLED();
                 } else {
-                    log("Ladder! " + current.getName() + " climbs to " + afterSL);
+                    log("Ladder! " + current.getName() + " climbs to " + afterSnakeOrLadder);
                     controller.ladderLED();
                 }
-                moveSwiftBotSquareBySquare(newPos, afterSL);
-                current.setPosition(afterSL);
+                moveSwiftBotSquareBySquare(newPos, afterSnakeOrLadder);
+                current.setPosition(afterSnakeOrLadder);
             }
 
             // Check win
@@ -453,15 +329,16 @@ public class Game {
         log("Human roll: " + humanRoll + ", SwiftBot roll: " + botRoll);
         if (humanRoll >= botRoll) {
             return human;
-        } else {
-            return botPlayer;
         }
+        return botPlayer;
     }
 
     private void moveSwiftBotSquareBySquare(int from, int to) {
-        if (from == to) return;
+        if (from == to) {
+            return;
+        }
         int step = (to > from) ? 1 : -1;
-        for (int pos = from; pos != to; pos += step) {
+        for (int position = from; position != to; position += step) {
             controller.normalMoveLED();
             controller.moveOneSquare();
         }
@@ -478,7 +355,7 @@ public class Game {
     }
 }
 
-public class Main {
+public class SnakeandLadder {
     public static void main(String[] args) {
         Game game = new Game();
         game.start();

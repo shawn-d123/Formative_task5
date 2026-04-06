@@ -7,6 +7,8 @@
  */
 
 
+package src_TrafficLights_shawn;
+
 import java.util.Scanner;
 import swiftbot.*;
 
@@ -91,7 +93,7 @@ public class TrafficLightMainController {
             swiftBot.disableAllButtons();
             swiftBot.disableUnderlights();
             System.out.println("Termination selected on start screen. Exiting program.");
-            System.exit(0);
+            return;
         }
 
         // Timer starts when button A is pressed
@@ -188,7 +190,7 @@ public class TrafficLightMainController {
 
         // exits the program
         if (hasTerminated) {
-            System.exit(0);
+            return;
         }
     }
 

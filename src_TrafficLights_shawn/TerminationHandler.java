@@ -4,6 +4,7 @@
  * termination UI flow on the SwiftBot.
  */
 
+package src_TrafficLights_shawn;
 
 import swiftbot.*;
 

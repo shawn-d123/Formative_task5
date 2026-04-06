@@ -4,6 +4,7 @@
  * or UNKNOWN based on the colour range thresholds.
  */
 
+package src_TrafficLights_shawn;
 
 import swiftbot.*;
 import java.awt.image.BufferedImage;

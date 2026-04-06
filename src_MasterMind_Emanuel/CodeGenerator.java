@@ -1,3 +1,5 @@
+package src_MasterMind_Emanuel;
+
 /**
  * CodeGenerator.java
  * This class is responsible for generating the secret code

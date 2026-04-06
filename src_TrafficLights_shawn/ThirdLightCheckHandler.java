@@ -3,6 +3,7 @@
  * prompts the user to continue or terminate at every third light via CLI input.
  */
 
+package src_TrafficLights_shawn;
 
 import swiftbot.*;
 import java.util.Scanner;

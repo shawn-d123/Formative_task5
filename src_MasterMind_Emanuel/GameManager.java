@@ -1,3 +1,5 @@
+package src_MasterMind_Emanuel;
+
 import swiftbot.*;
 
 // GameManager.java

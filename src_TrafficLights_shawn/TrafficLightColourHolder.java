@@ -2,6 +2,7 @@
  * Defines the set of traffic light colours the SwiftBot can detect and respond to.
  */
 
+package src_TrafficLights_shawn;
 
 /**
  * Represents the possible traffic light colours detected by the SwiftBot camera.

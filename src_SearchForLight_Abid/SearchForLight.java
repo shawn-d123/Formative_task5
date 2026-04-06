@@ -1,3 +1,5 @@
+package src_SearchForLight_Abid;
+
 import swiftbot.SwiftBotAPI;
 import swiftbot.ImageSize;
 import swiftbot.Button;
@@ -43,7 +45,7 @@ public class SearchForLight {
             swiftBot = SwiftBotAPI.INSTANCE;
         } catch (Exception e) {
             System.out.println("CRITICAL ERROR: Failed to initialize SwiftBot.");
-            System.exit(1);
+            return;
         }
 
         System.out.println("=========================================");
@@ -185,7 +187,7 @@ public class SearchForLight {
         writeLogFile(durationMs);
         
         try { Thread.sleep(500); } catch (Exception e) {} 
-        System.exit(0);
+        return;
     }
 
     public static BufferedImage takePictureSafely() {

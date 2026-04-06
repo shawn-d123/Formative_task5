@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/src_Dance_Shumail" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src_DetectObject_chris" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src_DrawShape_Miguel" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src_MasterMind_Emanuel" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src_NoughtsAndCrosses_Prahlad" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src_SearchForLight_Abid" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src_SnakeAndLadder_Minhaj" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src_SpyBot_alwyn" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src_TrafficLights_shawn" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src_ZigZag_Shamez" isTestSource="false" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>

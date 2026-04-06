@@ -1,3 +1,5 @@
+package src_Dance_Shumail;
+
 import swiftbot.*;
 
 import java.awt.image.BufferedImage;
@@ -134,7 +136,7 @@ public class SwiftBotDance {
             // I2C must be enabled on the Raspberry Pi.
             System.out.println(RED + "\n[ERROR] I2C is disabled! " +
                     "Please ask staff to enable it." + RESET);
-            System.exit(5);
+            return;
         }
 
         // ── Welcome banner ─────────────────────────────────────────────

@@ -1,3 +1,5 @@
+package src_SpyBot_alwyn;
+
 import swiftbot.*;
 import java.io.*;
 import java.time.LocalDateTime;
@@ -46,7 +48,7 @@ public class SpyBot {
         UI.print("Log saved to: " + logger.getLogPath());
         UI.print("SpyBot shutting down. Stay covert.");
         controller.shutdown();
-        System.exit(0);
+        return;
     }
 
     // Handles the full send flow:

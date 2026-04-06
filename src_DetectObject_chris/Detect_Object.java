@@ -1,3 +1,5 @@
+package src_DetectObject_chris;
+
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileWriter;
@@ -36,6 +38,8 @@ public class Detect_Object {
     private static final Scanner scanner = new Scanner(System.in);
 
     private static boolean buttonXListenerAttached = false;
+    private static boolean returnToLauncherRequested = false;
+    private static boolean finalLogWritten = false;
 
     private enum CuriousState { WANDERING, MOVING_FORWARD, MOVING_BACKWARD, HOLDING }
 
@@ -55,11 +59,13 @@ public class Detect_Object {
         System.out.println();
         try {
             swiftBot = SwiftBotAPI.INSTANCE;
+            returnToLauncherRequested = false;
+            finalLogWritten = false;
             attachButtonXListener();
             System.out.println("[SYSTEM] Please choose the mode to run by showing the QR code.");
             System.out.println();
 
-            while (true) {
+            while (!returnToLauncherRequested) {
             	System.out.println("[SYSTEM] Select mode to run:");
 //            	System.out.println("1 = Curious");
 //            	System.out.println("2 = Scaredy");
@@ -85,7 +91,7 @@ public class Detect_Object {
         } catch (Exception e) {
             System.out.println("\nI2C disabled!");
             e.printStackTrace();
-            System.exit(5);
+            return;
         }
     }
     
@@ -124,8 +130,8 @@ public class Detect_Object {
 
         System.out.println("[SYSTEM] Starting mode: " + currentMode);
         //if terminate = true exit
-        while (terminate != true) {
-        	//run mode according to the current mode
+        while (!terminate && !returnToLauncherRequested) {
+         	//run mode according to the current mode
 	        if (currentMode.equalsIgnoreCase("Curious")) curious();
 	        else if (currentMode.equalsIgnoreCase("Scaredy")) scaredy();
 	        else if (currentMode.equalsIgnoreCase("Dubious")) dubious();
@@ -406,6 +412,12 @@ public class Detect_Object {
     }
 
     private static void writeFinalLogAndExit() {
+        if (finalLogWritten) {
+            returnToLauncherRequested = true;
+            return;
+        }
+        finalLogWritten = true;
+        returnToLauncherRequested = true;
     	System.out.println("[SYSTEM] Writing to log file");
         try {
             long now = System.currentTimeMillis();//the current time in milli second
@@ -456,7 +468,7 @@ public class Detect_Object {
 			
 
         } catch (Exception e) { e.printStackTrace(); }
-        finally { System.exit(0); }
+        finally { return; }
     }
 
     private static void backupSessionData(String logFilePath, List<String> imagePaths) throws IOException, java.io.IOException {

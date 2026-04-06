@@ -3,7 +3,6 @@
  * stop and hold for red, pass at speed for green, and the give way sequence for blue.
  */
 
-package src_TrafficLights_shawn;
 
 import swiftbot.*;
 

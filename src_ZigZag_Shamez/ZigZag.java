@@ -7,7 +7,7 @@ import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-public class ZigZag {
+public class ZigzagTask {
     
     static SwiftBotAPI swiftBot;
     
@@ -127,7 +127,7 @@ public class ZigZag {
         } catch (Exception e) {
             System.out.println(RED + "\nERROR: An unexpected error occurred!" + RESET);
             e.printStackTrace();
-            return;
+            System.exit(5);
         }
     }
     

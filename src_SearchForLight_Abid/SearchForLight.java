@@ -45,7 +45,7 @@ public class SearchForLight {
             swiftBot = SwiftBotAPI.INSTANCE;
         } catch (Exception e) {
             System.out.println("CRITICAL ERROR: Failed to initialize SwiftBot.");
-            return;
+            System.exit(1);
         }
 
         System.out.println("=========================================");
@@ -187,7 +187,7 @@ public class SearchForLight {
         writeLogFile(durationMs);
         
         try { Thread.sleep(500); } catch (Exception e) {} 
-        return;
+        System.exit(0);
     }
 
     public static BufferedImage takePictureSafely() {

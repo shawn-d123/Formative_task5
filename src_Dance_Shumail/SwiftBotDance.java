@@ -136,7 +136,7 @@ public class SwiftBotDance {
             // I2C must be enabled on the Raspberry Pi.
             System.out.println(RED + "\n[ERROR] I2C is disabled! " +
                     "Please ask staff to enable it." + RESET);
-            return;
+            System.exit(5);
         }
 
         // ── Welcome banner ─────────────────────────────────────────────

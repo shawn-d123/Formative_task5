@@ -194,12 +194,12 @@ public class NoughtsAndCrosses {
             // 8. Display Final Summary
             displayFinalSummary();
             swiftBot.move(0,0,100); // Shutdown motors
-            return;
+            System.exit(0);
 
         } catch (Exception e) {
             System.out.println(RED + BOLD + "\nERROR: I2C disabled or Connection Lost! (Must run on Raspberry Pi)" + RESET);
             e.printStackTrace();
-            return;
+            System.exit(5);
         }
     }
 

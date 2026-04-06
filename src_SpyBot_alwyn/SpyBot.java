@@ -48,7 +48,7 @@ public class SpyBot {
         UI.print("Log saved to: " + logger.getLogPath());
         UI.print("SpyBot shutting down. Stay covert.");
         controller.shutdown();
-        return;
+        System.exit(0);
     }
 
     // Handles the full send flow:

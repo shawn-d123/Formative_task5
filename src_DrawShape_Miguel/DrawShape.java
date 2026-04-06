@@ -44,7 +44,7 @@ public class DrawShape {
             String answer = scanner.nextLine().trim().toLowerCase();
             if (answer.equals("no")) {
                 System.out.println("Exiting...");
-                return;
+                System.exit(0);
             } else if (!answer.equals("yes")) {
                 System.out.println("Invalid input. Please enter yes or no.");
                 validInput = false;
@@ -56,7 +56,7 @@ public class DrawShape {
             swiftBot = SwiftBotAPI.INSTANCE;
         } catch (Exception e) {
             System.out.println("ERROR: Could not initialise SwiftBot: " + e.getMessage());
-            return;
+            System.exit(5);
         }
 
         drawer        = new ShapeDrawer(swiftBot);
@@ -126,7 +126,7 @@ public class DrawShape {
             System.out.println("Log saved to: " + logPath);
         }
         System.out.println("Goodbye!");
-        return;
+        System.exit(0);
     }
 
     // Registers the X button so the user can quit at any time.

@@ -37,22 +37,18 @@ public class IntegratedMainMenu {
 
     private static void printMenu() {
         System.out.println();
-        System.out.println(GREEN + "========================================================================================" + RESET);
+        System.out.println(GREEN + "=======================================================================================================================" + RESET);
         System.out.println();
-
         System.out.println(GREEN + "   _____      _____ ___ _____ ___  ___ _____    __  __   _   ___ _  _    __  __ ___ _  _ _   _ " + RESET);
         System.out.println(GREEN + "  / __\\\\ \\    / /_ _| __|_   _| _ )/ _ \\\\_   _|  |  \\/  | /_\\\\ |_ _| \\\\| |  |  \\/  | __| \\\\| | | | |" + RESET);
         System.out.println(GREEN + "  \\\\__ \\\\\\\\ \\/\\\\/ / | || _|  | | | _ \\\\ (_) || |    | |\\\\/| |/ _ \\\\ | || .` |  | |\\\\/| | _|| .` | |_| |" + RESET);
         System.out.println(GREEN + "  |___/ \\\\_/\\\\_/ |___|_|   |_| |___/\\\\___/ |_|    |_|  |_/_/ \\\\_\\\\___|_|\\\\_|  |_|  |_|___|_|\\\\_|\\\\___/ " + RESET);
-
         System.out.println();
-        System.out.println(GREEN + "========================================================================================" + RESET);
+        System.out.println(GREEN + "========================================================================================================================" + RESET);
         System.out.println();
-
         System.out.println(WHITE + "Welcome to the integrated SwiftBot launcher." + RESET);
         System.out.println(WHITE + "Please choose a task to run from the menu below." + RESET);
         System.out.println();
-
         System.out.println(WHITE + "1.  Master Mind" + RESET);
         System.out.println(WHITE + "2.  Zigzag" + RESET);
         System.out.println(WHITE + "3.  Snakes and Ladders" + RESET);

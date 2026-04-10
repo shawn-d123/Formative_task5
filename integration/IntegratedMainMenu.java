@@ -45,14 +45,15 @@ public class IntegratedMainMenu {
     // menu screen to select a task
     private static void displayMainMenu() {
         System.out.println();
-        System.out.println(GREEN + "=======================================================================================================================" + RESET);
+        System.out.println(GREEN + "================================================================================================================" + RESET);
         System.out.println();
-        System.out.println(GREEN + "   _____      _____ ___ _____ ___  ___ _____    __  __   _   ___ _  _    __  __ ___ _  _ _   _ " + RESET);
-        System.out.println(GREEN + "  / __\\\\ \\    / /_ _| __|_   _| _ )/ _ \\\\_   _|  |  \\/  | /_\\\\ |_ _| \\\\| |  |  \\/  | __| \\\\| | | | |" + RESET);
-        System.out.println(GREEN + "  \\\\__ \\\\\\\\ \\/\\\\/ / | || _|  | | | _ \\\\ (_) || |    | |\\\\/| |/ _ \\\\ | || .` |  | |\\\\/| | _|| .` | |_| |" + RESET);
-        System.out.println(GREEN + "  |___/ \\\\_/\\\\_/ |___|_|   |_| |___/\\\\___/ |_|    |_|  |_/_/ \\\\_\\\\___|_|\\\\_|  |_|  |_|___|_|\\\\_|\\\\___/ " + RESET);
+        System.out.println(GREEN + " ______        _____ _____ _____ ____   ___ _____    __  __    _    ___ _   _    __  __ _____ _   _ _   _ " + RESET);
+        System.out.println(GREEN + "/ ___\\ \\      / /_ _|  ___|_   _| __ ) / _ \\_   _|  |  \\/  |  / \\  |_ _| \\ | |  |  \\/  | ____| \\ | | | | |" + RESET);
+        System.out.println(GREEN + "\\___ \\\\ \\ /\\ / / | || |_    | | |  _ \\| | | || |    | |\\/| | / _ \\  | ||  \\| |  | |\\/| |  _| |  \\| | | | |" + RESET);
+        System.out.println(GREEN + " ___) |\\ V  V /  | ||  _|   | | | |_) | |_| || |    | |  | |/ ___ \\ | || |\\  |  | |  | | |___| |\\  | |_| |" + RESET);
+        System.out.println(GREEN + "|____/  \\_/\\_/  |___|_|     |_| |____/ \\___/ |_|    |_|  |_/_/   \\_\\___|_| \\_|  |_|  |_|_____|_| \\_|\\___/ " + RESET);
         System.out.println();
-        System.out.println(GREEN + "========================================================================================================================" + RESET);
+        System.out.println(GREEN + "================================================================================================================" + RESET);
         System.out.println();
         System.out.println(WHITE + "Please enter a task to run from the menu below." + RESET);
         System.out.println();

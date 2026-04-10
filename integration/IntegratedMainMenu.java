@@ -36,7 +36,7 @@ public class IntegratedMainMenu {
                 continue;
             }
 
-            runSelectedTask(choice);
+            callChosenTask(choice);
         }
 
         scanner.close();
@@ -91,7 +91,7 @@ public class IntegratedMainMenu {
         }
     }
 
-    private static void runSelectedTask(int choice) {
+    private static void callChosenTask(int choice) {
         String taskName = "Unknown Task";
 
         try {

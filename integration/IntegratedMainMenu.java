@@ -1,8 +1,17 @@
 package integration;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.Scanner;
+
+import src_Dance_Shumail.SwiftBotDance;
+import src_DetectObject_chris.Detect_Object;
+import src_DrawShape_Miguel.DrawShape;
+import src_MasterMind_Emanuel.Main;
+import src_NoughtsAndCrosses_Prahlad.NoughtsAndCrosses;
+import src_SearchForLight_Abid.SearchForLight;
+import src_SnakeAndLadder_Minhaj.SnakeandLadder;
+import src_SpyBot_alwyn.SpyBot;
+import src_TrafficLights_shawn.TrafficLightMainController;
+import src_ZigZag_Shamez.ZigZag;
 
 public class IntegratedMainMenu {
 
@@ -22,14 +31,12 @@ public class IntegratedMainMenu {
 
             if (choice == 11) {
                 System.out.println();
-                System.out.println(RED + "Exiting integrated launcher." + RESET);
+                System.out.println(RED + "Terminating The SwiftBot launcher..." + RESET);
                 isRunning = false;
                 continue;
             }
 
-            String taskName = taskNameFor(choice);
-            String entryClass = entryClassFor(choice);
-            launchTask(taskName, entryClass);
+            runSelectedTask(choice);
         }
 
         scanner.close();
@@ -84,61 +91,79 @@ public class IntegratedMainMenu {
         }
     }
 
-    private static String taskNameFor(int choice) {
-        switch (choice) {
-            case 1:
-                return "Master Mind";
-            case 2:
-                return "Zigzag";
-            case 3:
-                return "Snakes and Ladders";
-            case 4:
-                return "Traffic Light";
-            case 5:
-                return "SpyBot";
-            case 6:
-                return "Draw Shape";
-            case 7:
-                return "Noughts and Crosses";
-            case 8:
-                return "Search for Light";
-            case 9:
-                return "Dance";
-            case 10:
-                return "Detect Object";
-            default:
-                throw new IllegalArgumentException("Unsupported menu option: " + choice);
+    private static void runSelectedTask(int choice) {
+        String taskName = "Unknown Task";
+
+        try {
+            switch (choice) {
+                case 1:
+                    taskName = "Master Mind";
+                    displayLaunchBanner(taskName);
+                    Main.main(new String[]{});
+                    break;
+                case 2:
+                    taskName = "Zigzag";
+                    displayLaunchBanner(taskName);
+                    ZigZag.main(new String[]{});
+                    break;
+                case 3:
+                    taskName = "Snakes and Ladders";
+                    displayLaunchBanner(taskName);
+                    SnakeandLadder.main(new String[]{});
+                    break;
+                case 4:
+                    taskName = "Traffic Light";
+                    displayLaunchBanner(taskName);
+                    TrafficLightMainController.main(new String[]{});
+                    break;
+                case 5:
+                    taskName = "SpyBot";
+                    displayLaunchBanner(taskName);
+                    SpyBot.main(new String[]{});
+                    break;
+                case 6:
+                    taskName = "Draw Shape";
+                    displayLaunchBanner(taskName);
+                    DrawShape.main(new String[]{});
+                    break;
+                case 7:
+                    taskName = "Noughts and Crosses";
+                    displayLaunchBanner(taskName);
+                    NoughtsAndCrosses.main(new String[]{});
+                    break;
+                case 8:
+                    taskName = "Search for Light";
+                    displayLaunchBanner(taskName);
+                    SearchForLight.main(new String[]{});
+                    break;
+                case 9:
+                    taskName = "Dance";
+                    displayLaunchBanner(taskName);
+                    SwiftBotDance.main(new String[]{});
+                    break;
+                case 10:
+                    taskName = "Detect Object";
+                    displayLaunchBanner(taskName);
+                    Detect_Object.main(new String[]{});
+                    break;
+                default:
+                    throw new IllegalArgumentException("Unsupported menu option: " + choice);
+            }
+        } catch (Throwable unexpected) {
+            System.out.println();
+            System.out.println(RED + "Task error for: " + taskName + RESET);
+            System.out.println(RED + "Reason: " + unexpected.getClass().getSimpleName() + " - " + unexpected.getMessage() + RESET);
+        } finally {
+            System.out.println();
+            System.out.println(GREEN + "========================================================================================" + RESET);
+            System.out.println();
+            System.out.println(WHITE + "Returning to main menu..." + RESET);
+            System.out.println();
+            System.out.println(GREEN + "========================================================================================" + RESET);
         }
     }
 
-    private static String entryClassFor(int choice) {
-        switch (choice) {
-            case 1:
-                return "src_MasterMind_Emanuel.Main";
-            case 2:
-                return "src_ZigZag_Shamez.ZigZag";
-            case 3:
-                return "src_SnakeAndLadder_Minhaj.SnakeandLadder";
-            case 4:
-                return "src_TrafficLights_shawn.TrafficLightMainController";
-            case 5:
-                return "src_SpyBot_alwyn.SpyBot";
-            case 6:
-                return "src_DrawShape_Miguel.DrawShape";
-            case 7:
-                return "src_NoughtsAndCrosses_Prahlad.NoughtsAndCrosses";
-            case 8:
-                return "src_SearchForLight_Abid.SearchForLight";
-            case 9:
-                return "src_Dance_Shumail.SwiftBotDance";
-            case 10:
-                return "src_DetectObject_chris.Detect_Object";
-            default:
-                throw new IllegalArgumentException("Unsupported menu option: " + choice);
-        }
-    }
-
-    private static void launchTask(String taskName, String entryClass) {
+    private static void displayLaunchBanner(String taskName) {
         System.out.println();
         System.out.println(GREEN + "========================================================================================" + RESET);
         System.out.println();
@@ -147,59 +172,5 @@ public class IntegratedMainMenu {
         System.out.println(WHITE + "Please wait..." + RESET);
         System.out.println();
         System.out.println(GREEN + "========================================================================================" + RESET);
-
-        ProcessBuilder processBuilder = new ProcessBuilder(
-                resolveJavaCommand(),
-                "-cp",
-                System.getProperty("java.class.path"),
-                entryClass
-        );
-
-        processBuilder.inheritIO();
-
-        try {
-            Process process = processBuilder.start();
-            int exitCode = process.waitFor();
-
-            System.out.println();
-            System.out.println(GREEN + "========================================================================================" + RESET);
-            System.out.println();
-            System.out.println(WHITE + taskName + " finished with exit code " + GREEN + exitCode + RESET);
-            System.out.println(WHITE + "Returning to main menu..." + RESET);
-            System.out.println();
-            System.out.println(GREEN + "========================================================================================" + RESET);
-        } catch (IOException e) {
-            System.out.println();
-            System.out.println(RED + "Could not launch task: " + taskName + RESET);
-            System.out.println(RED + "I/O error: " + e.getMessage() + RESET);
-            System.out.println(WHITE + "Returning to main menu..." + RESET);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            System.out.println();
-            System.out.println(RED + "Task interrupted: " + taskName + RESET);
-            System.out.println(WHITE + "Returning to main menu..." + RESET);
-        } catch (Throwable unexpected) {
-            System.out.println();
-            System.out.println(RED + "Unexpected launcher error for task: " + taskName + RESET);
-            System.out.println(RED + "Reason: " + unexpected.getClass().getSimpleName() + " - " + unexpected.getMessage() + RESET);
-            System.out.println(WHITE + "Returning to main menu..." + RESET);
-        }
-    }
-
-    private static String resolveJavaCommand() {
-        String javaHome = System.getProperty("java.home");
-        String basePath = javaHome + File.separator + "bin" + File.separator + "java";
-
-        File javaBinary = new File(basePath);
-        if (javaBinary.exists()) {
-            return javaBinary.getAbsolutePath();
-        }
-
-        File javaBinaryExe = new File(basePath + ".exe");
-        if (javaBinaryExe.exists()) {
-            return javaBinaryExe.getAbsolutePath();
-        }
-
-        return "java";
     }
 }

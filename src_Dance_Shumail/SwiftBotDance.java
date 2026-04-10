@@ -136,7 +136,7 @@ public class SwiftBotDance {
             // I2C must be enabled on the Raspberry Pi.
             System.out.println(RED + "\n[ERROR] I2C is disabled! " +
                     "Please ask staff to enable it." + RESET);
-            System.exit(5);
+            return;
         }
 
         // ── Welcome banner ─────────────────────────────────────────────
@@ -1000,9 +1000,6 @@ public class SwiftBotDance {
 
         System.out.println(CYAN +
                 "\n[INFO] Program terminated. Goodbye!" + RESET);
-
-        // Close the keyboard scanner cleanly on exit
-        keyboardScanner.close();
     }
 
     /**

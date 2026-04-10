@@ -37,6 +37,9 @@ public class DrawShape {
 
         // Ask the user if they want to start before doing anything else
         Scanner scanner = new Scanner(System.in);
+        xPressed.set(false);
+        qrReady.set(false);
+        lastPressTime = 0;
         boolean validInput;
         do {
             validInput = true;
@@ -44,7 +47,7 @@ public class DrawShape {
             String answer = scanner.nextLine().trim().toLowerCase();
             if (answer.equals("no")) {
                 System.out.println("Exiting...");
-                System.exit(0);
+                return;
             } else if (!answer.equals("yes")) {
                 System.out.println("Invalid input. Please enter yes or no.");
                 validInput = false;
@@ -56,7 +59,7 @@ public class DrawShape {
             swiftBot = SwiftBotAPI.INSTANCE;
         } catch (Exception e) {
             System.out.println("ERROR: Could not initialise SwiftBot: " + e.getMessage());
-            System.exit(5);
+            return;
         }
 
         drawer        = new ShapeDrawer(swiftBot);
@@ -126,7 +129,6 @@ public class DrawShape {
             System.out.println("Log saved to: " + logPath);
         }
         System.out.println("Goodbye!");
-        System.exit(0);
     }
 
     // Registers the X button so the user can quit at any time.

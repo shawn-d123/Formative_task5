@@ -38,6 +38,7 @@ public class Detect_Object {
     private static final Scanner scanner = new Scanner(System.in);
 
     private static boolean buttonXListenerAttached = false;
+    private static boolean sessionFinished = false;
 
     private enum CuriousState { WANDERING, MOVING_FORWARD, MOVING_BACKWARD, HOLDING }
 
@@ -55,14 +56,24 @@ public class Detect_Object {
         System.out.println("Made By: Chris Das (2550446)");
         System.out.println();
         System.out.println();
+        terminate = false;
+        sessionFinished = false;
+        buttonXListenerAttached = false;
+        currentMode = "";
+        currentModeStart = 0L;
+        currentModeEncounters = 0;
+        currentModeEncountersWindowStart = 0L;
+        currentModeImagePaths = new ArrayList<>();
+        sessionSummaries.clear();
+
         try {
             swiftBot = SwiftBotAPI.INSTANCE;
             attachButtonXListener();
             System.out.println("[SYSTEM] Please choose the mode to run by showing the QR code.");
             System.out.println();
 
-            while (true) {
-            	System.out.println("[SYSTEM] Select mode to run:");
+            while (!sessionFinished) {
+             	System.out.println("[SYSTEM] Select mode to run:");
 //            	System.out.println("1 = Curious");
 //            	System.out.println("2 = Scaredy");
 //            	System.out.println("3 = Dubious");
@@ -87,7 +98,7 @@ public class Detect_Object {
         } catch (Exception e) {
             System.out.println("\nI2C disabled!");
             e.printStackTrace();
-            System.exit(5);
+            return;
         }
     }
     
@@ -126,13 +137,13 @@ public class Detect_Object {
 
         System.out.println("[SYSTEM] Starting mode: " + currentMode);
         //if terminate = true exit
-        while (terminate != true) {
+        while (terminate != true && !sessionFinished) {
         	//run mode according to the current mode
 	        if (currentMode.equalsIgnoreCase("Curious")) curious();
 	        else if (currentMode.equalsIgnoreCase("Scaredy")) scaredy();
 	        else if (currentMode.equalsIgnoreCase("Dubious")) dubious();
         }
-        if (terminate == true) {//if terminate is true put details in ModeSummary and execute writeFinalLogAndExit
+        if (terminate == true && !sessionFinished) {//if terminate is true put details in ModeSummary and execute writeFinalLogAndExit
             long duration = System.currentTimeMillis() - currentModeStart;
             sessionSummaries.add(new ModeSummary(currentMode, duration, currentModeEncounters, new ArrayList<>(currentModeImagePaths)));
             System.out.println("[SYSTEM] Mode '" + currentMode + "' ended. Encounters: " + currentModeEncounters + " Duration (ms): " + duration);
@@ -407,7 +418,13 @@ public class Detect_Object {
         } catch (Exception e) { e.printStackTrace(); }
     }
 
-    private static void writeFinalLogAndExit() {
+    private static synchronized void writeFinalLogAndExit() {
+        if (sessionFinished) {
+            return;
+        }
+
+        sessionFinished = true;
+        terminate = true;
     	System.out.println("[SYSTEM] Writing to log file");
         try {
             long now = System.currentTimeMillis();//the current time in milli second
@@ -458,7 +475,6 @@ public class Detect_Object {
 			
 
         } catch (Exception e) { e.printStackTrace(); }
-        finally { System.exit(0); }
     }
 
     private static void backupSessionData(String logFilePath, List<String> imagePaths) throws IOException, java.io.IOException {

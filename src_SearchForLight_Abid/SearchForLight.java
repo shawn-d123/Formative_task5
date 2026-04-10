@@ -45,7 +45,7 @@ public class SearchForLight {
             swiftBot = SwiftBotAPI.INSTANCE;
         } catch (Exception e) {
             System.out.println("CRITICAL ERROR: Failed to initialize SwiftBot.");
-            System.exit(1);
+            return;
         }
 
         System.out.println("=========================================");
@@ -70,15 +70,25 @@ public class SearchForLight {
         System.out.println("=========================================");
 
         System.out.println("WAITING... Press Button 'A' on the SwiftBot to begin the mission.");
-        
+
+        final boolean[] startPressed = {false};
+        swiftBot.disableAllButtons();
         swiftBot.enableButton(Button.A, () -> {
             System.out.println("\n>>> Button A Pressed! Initializing Light Search Protocol...");
-            startLightSearch();
+            startPressed[0] = true;
         });
 
-        while (true) {
-            try { Thread.sleep(1000); } catch (InterruptedException e) { }
+        while (!startPressed[0]) {
+            try {
+                Thread.sleep(200);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                return;
+            }
         }
+
+        swiftBot.disableButton(Button.A);
+        startLightSearch();
     }
 
     public static void startLightSearch() {
@@ -187,7 +197,7 @@ public class SearchForLight {
         writeLogFile(durationMs);
         
         try { Thread.sleep(500); } catch (Exception e) {} 
-        System.exit(0);
+        return;
     }
 
     public static BufferedImage takePictureSafely() {

@@ -92,7 +92,7 @@ public class IntegratedMainMenu {
     }
 
     private static void callChosenTask(int choice) {
-        String taskName = "Unknown Task";
+        String taskName = "";
 
         try {
             switch (choice) {
@@ -152,14 +152,10 @@ public class IntegratedMainMenu {
         } catch (Throwable unexpected) {
             System.out.println();
             System.out.println(RED + "Task error for: " + taskName + RESET);
-            System.out.println(RED + "Reason: " + unexpected.getClass().getSimpleName() + " - " + unexpected.getMessage() + RESET);
         } finally {
-            System.out.println();
-            System.out.println(GREEN + "========================================================================================" + RESET);
             System.out.println();
             System.out.println(WHITE + "Returning to main menu..." + RESET);
             System.out.println();
-            System.out.println(GREEN + "========================================================================================" + RESET);
         }
     }
 

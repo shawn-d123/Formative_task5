@@ -14,16 +14,16 @@ public class IntegratedMainMenu {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        boolean running = true;
+        boolean isRunning = true;
 
-        while (running) {
+        while (isRunning) {
             printMenu();
             int choice = readChoice(scanner);
 
             if (choice == 11) {
                 System.out.println();
                 System.out.println(RED + "Exiting integrated launcher." + RESET);
-                running = false;
+                isRunning = false;
                 continue;
             }
 

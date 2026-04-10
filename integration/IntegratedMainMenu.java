@@ -147,7 +147,7 @@ public class IntegratedMainMenu {
                     Detect_Object.main(new String[]{});
                     break;
                 default:
-                    throw new IllegalArgumentException("Invalid menu option: " + choice);
+                    throw new IllegalArgumentException("Invalid menu option: " + choice + ". Please choose a valid option.");
             }
         } catch (Throwable unexpected) {
             System.out.println();

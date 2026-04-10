@@ -17,7 +17,7 @@ public class IntegratedMainMenu {
         boolean isRunning = true;
 
         while (isRunning) {
-            printMenu();
+            displayMenu();
             int choice = readChoice(scanner);
 
             if (choice == 11) {
@@ -35,7 +35,7 @@ public class IntegratedMainMenu {
         scanner.close();
     }
 
-    private static void printMenu() {
+    private static void displayMenu() {
         System.out.println();
         System.out.println(GREEN + "=======================================================================================================================" + RESET);
         System.out.println();
@@ -46,7 +46,6 @@ public class IntegratedMainMenu {
         System.out.println();
         System.out.println(GREEN + "========================================================================================================================" + RESET);
         System.out.println();
-        System.out.println(WHITE + "Welcome to the integrated SwiftBot launcher." + RESET);
         System.out.println(WHITE + "Please choose a task to run from the menu below." + RESET);
         System.out.println();
         System.out.println(WHITE + "1.  Master Mind" + RESET);
@@ -62,7 +61,7 @@ public class IntegratedMainMenu {
         System.out.println(RED + "11. Exit" + RESET);
         System.out.println();
 
-        System.out.print(WHITE + "Select an option (1-11): " + RESET);
+        System.out.print(WHITE + "Enter an option 1 to 11: " + RESET);
     }
 
     private static int readChoice(Scanner scanner) {

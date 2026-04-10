@@ -86,8 +86,8 @@ public class IntegratedMainMenu {
             }
 
             System.out.println();
-            System.out.println(RED + "Invalid input. Please enter a number from 1 to 11." + RESET);
-            System.out.print(WHITE + "Select an option (1-11): " + RESET);
+            System.out.println(RED + "Invalid input chosen, Please enter a number from 1 to 11." + RESET);
+            System.out.print(WHITE + "Enter an option 1 to 11 : " + RESET);
         }
     }
 

@@ -26,7 +26,7 @@ public class IntegratedMainMenu {
         boolean isRunning = true;
 
         while (isRunning) {
-            displayMenu();
+            displayMainMenu();
             int choice = readChoice(scanner);
 
             if (choice == 11) {
@@ -42,7 +42,7 @@ public class IntegratedMainMenu {
         scanner.close();
     }
 
-    private static void displayMenu() {
+    private static void displayMainMenu() {
         System.out.println();
         System.out.println(GREEN + "=======================================================================================================================" + RESET);
         System.out.println();

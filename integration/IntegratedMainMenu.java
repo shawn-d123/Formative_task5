@@ -163,9 +163,15 @@ public class IntegratedMainMenu {
         System.out.println();
         System.out.println(GREEN + "========================================================================================" + RESET);
         System.out.println();
-        System.out.println(WHITE + "Launching: " + GREEN + taskName + RESET);
+        System.out.println(GREEN + "  _        _   _   _ _   _  ____ _   _ ___ _   _  ____    _____  _    ____  _  __" + RESET);
+        System.out.println(GREEN + " | |      / \\ | | | | \\ | |/ ___| | | |_ _| \\ | |/ ___|  |_   _|/ \\  / ___|| |/ /" + RESET);
+        System.out.println(GREEN + " | |     / _ \\| | | |  \\| | |   | |_| || ||  \\| | |  _     | | / _ \\ \\___ \\| ' / " + RESET);
+        System.out.println(GREEN + " | |___ / ___ \\ |_| | |\\  | |___|  _  || || |\\  | |_| |    | |/ ___ \\ ___) | . \\ " + RESET);
+        System.out.println(GREEN + " |_____/_/   \\_\\___/|_| \\_|\\____|_| |_|___|_| \\_|\\____|    |_/_/   \\_\\____/|_|\\_\\" + RESET);
         System.out.println();
         System.out.println(GREEN + "========================================================================================" + RESET);
+        System.out.println();
+        System.out.println(WHITE + "Launching: " + GREEN + taskName + RESET);
         System.out.println();
     }
 }

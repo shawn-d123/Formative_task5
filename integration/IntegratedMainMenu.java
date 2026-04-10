@@ -65,7 +65,7 @@ public class IntegratedMainMenu {
         System.out.println(WHITE + "8.  Search for Light" + RESET);
         System.out.println(WHITE + "9.  Dance" + RESET);
         System.out.println(WHITE + "10. Detect Object" + RESET);
-        System.out.println(RED + "11. Exit" + RESET);
+        System.out.println(WHITE + "11. Exit" + RESET);
         System.out.println();
 
         System.out.print(WHITE + "Enter an option 1 to 11: " + RESET);
@@ -147,7 +147,7 @@ public class IntegratedMainMenu {
                     Detect_Object.main(new String[]{});
                     break;
                 default:
-                    throw new IllegalArgumentException("Unsupported menu option: " + choice);
+                    throw new IllegalArgumentException("Invalid menu option: " + choice);
             }
         } catch (Throwable unexpected) {
             System.out.println();

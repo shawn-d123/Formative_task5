@@ -165,8 +165,7 @@ public class IntegratedMainMenu {
         System.out.println();
         System.out.println(WHITE + "Launching: " + GREEN + taskName + RESET);
         System.out.println();
-        System.out.println(WHITE + "Please wait..." + RESET);
-        System.out.println();
         System.out.println(GREEN + "========================================================================================" + RESET);
+        System.out.println();
     }
 }

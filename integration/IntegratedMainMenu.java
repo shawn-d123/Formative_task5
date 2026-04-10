@@ -15,7 +15,7 @@ import src_ZigZag_Shamez.ZigZag;
 
 public class IntegratedMainMenu {
 
-    // Colour constants for the command line UI
+    // Colour constants for the CLI menu
     private static final String RESET = "\u001B[0m";
     private static final String GREEN = "\u001B[32m";
     private static final String WHITE = "\u001B[37m";
@@ -42,6 +42,7 @@ public class IntegratedMainMenu {
         scanner.close();
     }
 
+    // menu screen to select a task
     private static void displayMainMenu() {
         System.out.println();
         System.out.println(GREEN + "=======================================================================================================================" + RESET);
@@ -71,6 +72,7 @@ public class IntegratedMainMenu {
         System.out.print(WHITE + "Enter an option 1 to 11: " + RESET);
     }
 
+    // reads the user's choice from the menu and validates it
     private static int readChoice(Scanner scanner) {
         while (true) {
             String input = scanner.nextLine().trim();
@@ -91,6 +93,7 @@ public class IntegratedMainMenu {
         }
     }
 
+    // calls the selected task
     private static void callChosenTask(int choice) {
         String taskName = "";
 
@@ -159,6 +162,7 @@ public class IntegratedMainMenu {
         }
     }
 
+    // Displays the launch screen for the chosen task
     private static void displayChosenTaskLaunchScreen(String taskName) {
         System.out.println();
         System.out.println(GREEN + "========================================================================================" + RESET);

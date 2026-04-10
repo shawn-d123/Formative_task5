@@ -98,52 +98,52 @@ public class IntegratedMainMenu {
             switch (choice) {
                 case 1:
                     taskName = "Master Mind";
-                    displayLaunchBanner(taskName);
+                    displayChosenTaskLaunchScreen(taskName);
                     Main.main(new String[]{});
                     break;
                 case 2:
                     taskName = "Zigzag";
-                    displayLaunchBanner(taskName);
+                    displayChosenTaskLaunchScreen(taskName);
                     ZigZag.main(new String[]{});
                     break;
                 case 3:
                     taskName = "Snakes and Ladders";
-                    displayLaunchBanner(taskName);
+                    displayChosenTaskLaunchScreen(taskName);
                     SnakeandLadder.main(new String[]{});
                     break;
                 case 4:
                     taskName = "Traffic Light";
-                    displayLaunchBanner(taskName);
+                    displayChosenTaskLaunchScreen(taskName);
                     TrafficLightMainController.main(new String[]{});
                     break;
                 case 5:
                     taskName = "SpyBot";
-                    displayLaunchBanner(taskName);
+                    displayChosenTaskLaunchScreen(taskName);
                     SpyBot.main(new String[]{});
                     break;
                 case 6:
                     taskName = "Draw Shape";
-                    displayLaunchBanner(taskName);
+                    displayChosenTaskLaunchScreen(taskName);
                     DrawShape.main(new String[]{});
                     break;
                 case 7:
                     taskName = "Noughts and Crosses";
-                    displayLaunchBanner(taskName);
+                    displayChosenTaskLaunchScreen(taskName);
                     NoughtsAndCrosses.main(new String[]{});
                     break;
                 case 8:
                     taskName = "Search for Light";
-                    displayLaunchBanner(taskName);
+                    displayChosenTaskLaunchScreen(taskName);
                     SearchForLight.main(new String[]{});
                     break;
                 case 9:
                     taskName = "Dance";
-                    displayLaunchBanner(taskName);
+                    displayChosenTaskLaunchScreen(taskName);
                     SwiftBotDance.main(new String[]{});
                     break;
                 case 10:
                     taskName = "Detect Object";
-                    displayLaunchBanner(taskName);
+                    displayChosenTaskLaunchScreen(taskName);
                     Detect_Object.main(new String[]{});
                     break;
                 default:
@@ -159,7 +159,7 @@ public class IntegratedMainMenu {
         }
     }
 
-    private static void displayLaunchBanner(String taskName) {
+    private static void displayChosenTaskLaunchScreen(String taskName) {
         System.out.println();
         System.out.println(GREEN + "========================================================================================" + RESET);
         System.out.println();

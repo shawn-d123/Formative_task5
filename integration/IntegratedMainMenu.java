@@ -2,6 +2,7 @@ package integration;
 
 import java.util.Scanner;
 
+// imports all the tasks
 import src_Dance_Shumail.SwiftBotDance;
 import src_DetectObject_chris.Detect_Object;
 import src_DrawShape_Miguel.DrawShape;

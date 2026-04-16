@@ -91,6 +91,7 @@ public class IntegratedMainMenu {
                 // keep looping until the user enters a valid number
             }
 
+            // if the user enters an invalid number, display an error message and re-prompt
             System.out.println();
             System.out.println(RED + "Invalid input chosen, Please enter a number from 1 to 11." + RESET);
             System.out.print(WHITE + "Enter an option 1 to 11 : " + RESET);

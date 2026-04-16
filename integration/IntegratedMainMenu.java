@@ -14,6 +14,8 @@ import src_SpyBot_alwyn.SpyBot;
 import src_TrafficLights_shawn.TrafficLightMainController;
 import src_ZigZag_Shamez.ZigZag;
 
+
+// this class is the main menu for the SwiftBot launcher, it allows the user to select which task they want to run and then calls the main method of that task
 public class IntegratedMainMenu {
 
     // Colour constants for the CLI menu

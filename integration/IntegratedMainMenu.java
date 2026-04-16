@@ -102,6 +102,7 @@ public class IntegratedMainMenu {
     private static void callChosenTask(int choice) {
         String taskName = "";
 
+        // calls the main method of the selected task, if the choice is invalid it throws an exception which is caught and an error message is displayed, then it returns to the main menu
         try {
             switch (choice) {
                 case 1:

@@ -12,7 +12,7 @@ import swiftbot.*;
  * traffic light colour. Behaviours are driven by the speeds configured in
  * the selected driving mode, which are passed in at construction time.
  */
-public class TrafficLightBehaviourHandler {
+public class     TrafficLightBehaviourHandler {
 
     private final SwiftBotAPI swiftBot;
 

@@ -16,8 +16,6 @@ import java.util.Calendar;
 import java.util.*;
 import javax.imageio.ImageIO;
 
-import com.pi4j.io.exception.IOException;
-
 import swiftbot.*;
 
 public class Detect_Object {
@@ -108,14 +106,14 @@ public class Detect_Object {
                     displayInfo("MODE SELECTED", "QR code found. Decoded message: " + decodedMessage);
 					return decodedMessage;
 				}	
+                displayInfo("QR SCAN", "No QR code detected on this attempt.");
 				++attempts;
-				return "No QR code detected";
 			} catch (Exception e) {
                 displayInfo("QR SCAN", "Unable to find QR code...trying again...");
 				++attempts;
 			}
 		}
-		return currentMode ;
+		return "No QR code detected";
 	}
 
     private static void runMode(String modeName) {
@@ -476,7 +474,7 @@ public class Detect_Object {
         } catch (Exception e) { e.printStackTrace(); }
     }
 
-    private static void backupSessionData(String logFilePath, List<String> imagePaths) throws IOException, java.io.IOException {
+    private static void backupSessionData(String logFilePath, List<String> imagePaths) throws java.io.IOException {
 
         // Create backup directory
         String backupDirPath = System.getProperty("user.dir") + File.separator + "backup_" + System.currentTimeMillis();
@@ -648,16 +646,16 @@ public class Detect_Object {
 
     private static void displayNoObjectScreen(String modeName) {
         System.out.println();
-        System.out.println(BLUE + "===================================================================================================================================" + "============" + RESET);
+        System.out.println(BLUE + "==================================================================================" + RESET);
         System.out.println();
-        System.out.println(BLUE + "  _   _  ____     ____  ____       _ ______ _____  _____ _______    _____ ______          _____   _____ _    _ _____ _   _  _____ " + RESET);
-        System.out.println(BLUE + " | \\ | |/ __ \\   / __ \\|  _ \\     | |  ____/ ____|/ ____|__   __|  / ____|  ____|   /\\   |  __ \\ / ____| |  | |_   _| \\ | |/ ____|" + RESET);
-        System.out.println(BLUE + " |  \\| | |  | | | |  | | |_) |    | | |__ | |    | |       | |    | (___ | |__     /  \\  | |__) | |    | |__| | | | |  \\| | |  __ " + RESET);
-        System.out.println(BLUE + " | . ` | |  | | | |  | |  _ < _   | |  __|| |    | |       | |     \\___ \\|  __|   / /\\ \\ |  _  /| |    |  __  | | | | . ` | | |_ |" + RESET);
-        System.out.println(BLUE + " | |\\  | |__| | | |__| | |_) | |__| | |___| |____| |____   | |     ____) | |____ / ____ \\| | \\ \\| |____| |  | |_| |_| |\\  | |__| |" + RESET);
-        System.out.println(BLUE + " |_| \\_|\\____/   \\____/|____/ \\____/|______\\_____|\\_____|  |_|    |_____/|______/_/    \\_\\_|  \\_\\\\_____|_|  |_|_____|_| \\_|\\_____|" + RESET);
+        System.out.println(BLUE + " _   _  ____     ____  ____       _ ______ _____ _______ " + RESET);
+        System.out.println(BLUE + "| \\ | |/ __ \\   / __ \\|  _ \\     | |  ____/ ____|__   __|" + RESET);
+        System.out.println(BLUE + "|  \\| | |  | | | |  | | |_) |    | | |__ | |       | |   " + RESET);
+        System.out.println(BLUE + "| . ` | |  | | | |  | |  _ < _   | |  __|| |       | |   " + RESET);
+        System.out.println(BLUE + "| |\\  | |__| | | |__| | |_) | |__| | |___| |____   | |   " + RESET);
+        System.out.println(BLUE + "|_| \\_|\\____/   \\____/|____/ \\____/|______\\_____|  |_|   " + RESET);
         System.out.println();
-        System.out.println(BLUE + "===================================================================================================================================" + "============" + RESET);
+        System.out.println(BLUE + "==================================================================================" + RESET);
         System.out.println();
         System.out.println(WHITE + modeName + RESET);
         System.out.println(WHITE + "Status          : " + BLUE + "No object in active range. Wandering/searching..." + RESET);

@@ -621,7 +621,8 @@ public class Detect_Object {
         System.out.println(CYAN + "=====================================================================================" + RESET);
         System.out.println();
         System.out.println(WHITE + "Scan QR code to choose operating mode." + RESET);
-        System.out.println(WHITE + "Accepted QR values : " + CYAN + "Curious SwiftBot | Scaredy SwiftBot | Dubious SwiftBot | Exit" + RESET);
+        System.out.println(WHITE + "Accepted QR values :" + RESET);
+        System.out.println(CYAN + "Curious SwiftBot | Scaredy SwiftBot | Dubious SwiftBot | Exit" + RESET);
         System.out.println();
     }
 
@@ -636,7 +637,7 @@ public class Detect_Object {
         System.out.println(GREEN + "| |  | | |__| | |__| | |____     ____) | |____| |____| |___| |____   | |  | |____| |__| |" + RESET);
         System.out.println(GREEN + "|_|  |_|\\____/|_____/|______|   |_____/|______|______|______\\_____|  |_|  |______|_____/ " + RESET);
         System.out.println();
-        System.out.println(GREEN + "================================================================================================================" + RESET);
+        System.out.println(GREEN + "==================================================================================================================" + RESET);
         System.out.println();
         System.out.println(WHITE + "MODE SELECTED : " + GREEN + modeLabel + RESET);
         System.out.println(WHITE + "SYSTEM STATUS : " + GREEN + "READY" + RESET);
@@ -664,7 +665,7 @@ public class Detect_Object {
 
     private static void displayScaredyModeScreen(String status) {
         System.out.println();
-        System.out.println(RED + "==============================================================================" + RESET);
+        System.out.println(RED + "===============================================================================" + RESET);
         System.out.println();
         System.out.println(RED + "   _____  _____          _______ _______     __" + RESET);
         System.out.println(RED + "  / ____|/ ____|   /\\   |__   __|  __ \\ \\   / /" + RESET);

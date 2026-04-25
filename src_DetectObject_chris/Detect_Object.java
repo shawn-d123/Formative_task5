@@ -516,6 +516,177 @@ public class Detect_Object {
         displayInfo("BACKUP", "Backup completed successfully.");
     }
 
+    private static void printBorder(String colour) {
+        System.out.println(colour + BORDER + RESET);
+    }
+
+    private static void displayWelcomeScreen() {
+        System.out.println();
+        printBorder(CYAN);
+        System.out.println(CYAN + "  _____  ______ _______ ______ _____ _______    ____  ____       _ ______ _____ _______ " + RESET);
+        System.out.println(CYAN + " |  __ \\|  ____|__   __|  ____/ ____|__   __|  / __ \\|  _ \\     | |  ____/ ____|__   __|" + RESET);
+        System.out.println(CYAN + " | |  | | |__     | |  | |__ | |       | |    | |  | | |_) |    | | |__ | |       | |   " + RESET);
+        System.out.println(CYAN + " | |  | |  __|    | |  |  __|| |       | |    | |  | |  _ < _   | |  __|| |       | |   " + RESET);
+        System.out.println(CYAN + " | |__| | |____   | |  | |___| |____   | |    | |__| | |_) | |__| | |___| |____   | |   " + RESET);
+        System.out.println(CYAN + " |_____/|______|  |_|  |______\\_____|  |_|     \\____/|____/ \\____/|______\\_____|  |_|   " + RESET);
+        printBorder(CYAN);
+        System.out.println(WHITE + "CS1813" + RESET);
+        System.out.println(WHITE + "Assignment - Detect Object" + RESET);
+        System.out.println(WHITE + "Made By: Chris Das (2550446)" + RESET);
+        System.out.println();
+    }
+
+    private static void displayModeScanScreen() {
+        System.out.println();
+        printBorder(CYAN);
+        System.out.println(CYAN + " __  __  ____  _____  ______    _____  _____          _   _ " + RESET);
+        System.out.println(CYAN + "|  \\/  |/ __ \\|  __ \\|  ____|  / ____|/ ____|   /\\   | \\ | |" + RESET);
+        System.out.println(CYAN + "| \\  / | |  | | |  | | |__    | (___ | |       /  \\  |  \\| |" + RESET);
+        System.out.println(CYAN + "| |\\/| | |  | | |  | |  __|    \\___ \\| |      / /\\ \\ | . ` |" + RESET);
+        System.out.println(CYAN + "| |  | | |__| | |__| | |____   ____) | |____ / ____ \\| |\\  |" + RESET);
+        System.out.println(CYAN + "|_|  |_|\\____/|_____/|______| |_____/ \\_____/_/    \\_\\_| \\_|" + RESET);
+        printBorder(CYAN);
+        System.out.println(WHITE + "Please choose the mode by showing a QR code." + RESET);
+        System.out.println(WHITE + "Valid QR values: Curious SwiftBot | Scaredy SwiftBot | Dubious SwiftBot | Exit" + RESET);
+        System.out.println();
+    }
+
+    private static void displayModeSelectedScreen(String modeLabel) {
+        System.out.println();
+        printBorder(GREEN);
+        System.out.println(GREEN + " __  __  ____  _____  ______    _____ ______ _      ______ _____ _______ ______ _____  " + RESET);
+        System.out.println(GREEN + "|  \\/  |/ __ \\|  __ \\|  ____|  / ____|  ____| |    |  ____/ ____|__   __|  ____|  __ \\ " + RESET);
+        System.out.println(GREEN + "| \\  / | |  | | |  | | |__    | (___ | |__  | |    | |__ | |       | |  | |__  | |  | |" + RESET);
+        System.out.println(GREEN + "| |\\/| | |  | | |  | |  __|    \\___ \\|  __| | |    |  __|| |       | |  |  __| | |  | |" + RESET);
+        System.out.println(GREEN + "| |  | | |__| | |__| | |____   ____) | |____| |____| |___| |____   | |  | |____| |__| |" + RESET);
+        System.out.println(GREEN + "|_|  |_|\\____/|_____/|______| |_____/|______|______|______\\_____|  |_|  |______|_____/ " + RESET);
+        printBorder(GREEN);
+        System.out.println(WHITE + "MODE SELECTED : " + GREEN + modeLabel + RESET);
+        System.out.println();
+    }
+
+    private static void displayCuriousModeScreen(String status, double distance) {
+        System.out.println();
+        printBorder(GREEN);
+        System.out.println(GREEN + "CURIOUS MODE ACTIVE" + RESET);
+        System.out.println(WHITE + status + RESET);
+        System.out.println(WHITE + "Distance: " + GREEN + String.format("%.2f", distance) + " cm" + RESET);
+        printBorder(GREEN);
+        System.out.println();
+    }
+
+    private static void displayScaredyModeScreen(String status) {
+        System.out.println();
+        printBorder(RED);
+        System.out.println(RED + "SCAREDY MODE ACTIVE" + RESET);
+        System.out.println(WHITE + status + RESET);
+        printBorder(RED);
+        System.out.println();
+    }
+
+    private static void displayDubiousModeScreen(int randomChoice, String selectedMode) {
+        System.out.println();
+        printBorder(YELLOW);
+        System.out.println(YELLOW + "DUBIOUS MODE ACTIVE" + RESET);
+        System.out.println(WHITE + "Random choice: " + randomChoice + RESET);
+        System.out.println(WHITE + "MODE SELECTED: " + YELLOW + selectedMode + RESET);
+        printBorder(YELLOW);
+        System.out.println();
+    }
+
+    private static void displayObjectDetectedScreen(double distance) {
+        System.out.println();
+        printBorder(RED);
+        System.out.println(RED + "  ____  ____       _ ______ _____ _______   _____  ______ _______ ______ _____ _______ ______ _____  " + RESET);
+        System.out.println(RED + " / __ \\|  _ \\     | |  ____/ ____|__   __| |  __ \\|  ____|__   __|  ____/ ____|__   __|  ____|  __ \\ " + RESET);
+        System.out.println(RED + "| |  | | |_) |    | | |__ | |       | |    | |  | | |__     | |  | |__ | |       | |  | |__  | |  | |" + RESET);
+        System.out.println(RED + "| |  | |  _ < _   | |  __|| |       | |    | |  | |  __|    | |  |  __|| |       | |  |  __| | |  | |" + RESET);
+        System.out.println(RED + "| |__| | |_) | |__| | |___| |____   | |    | |__| | |____   | |  | |___| |____   | |  | |____| |__| |" + RESET);
+        System.out.println(RED + " \\____/|____/ \\____/|______\\_____|  |_|    |_____/|______|  |_|  |______\\_____|  |_|  |______|_____/ " + RESET);
+        printBorder(RED);
+        System.out.println(WHITE + "OBJECT DETECTED at distance: " + RED + String.format("%.2f", distance) + " cm" + RESET);
+        System.out.println();
+    }
+
+    private static void displayNoObjectScreen(String modeName) {
+        System.out.println();
+        printBorder(BLUE);
+        System.out.println(BLUE + modeName + RESET);
+        System.out.println(WHITE + "No object in active range. Wandering/searching..." + RESET);
+        printBorder(BLUE);
+        System.out.println();
+    }
+
+    private static void displayModeChangePromptScreen() {
+        System.out.println();
+        printBorder(YELLOW);
+        System.out.println(YELLOW + "MODE CHANGE PROMPT" + RESET);
+        System.out.println(WHITE + "Enter 1 to change mode, 2 to terminate program (or press X to terminate): " + RESET);
+        printBorder(YELLOW);
+    }
+
+    private static void displayInvalidInputScreen(String message) {
+        System.out.println();
+        printBorder(RED);
+        System.out.println(RED + " _____ _   _ _____  _    _ _______    ______ _____  _____   ____  _____  " + RESET);
+        System.out.println(RED + "|_   _| \\ | |  __ \\| |  | |__   __|  |  ____|  __ \\|  __ \\ / __ \\|  __ \\ " + RESET);
+        System.out.println(RED + "  | | |  \\| | |__) | |  | |  | |     | |__  | |__) | |__) | |  | | |__) |" + RESET);
+        System.out.println(RED + "  | | | . ` |  ___/| |  | |  | |     |  __| |  _  /|  _  /| |  | |  _  / " + RESET);
+        System.out.println(RED + " _| |_| |\\  | |    | |__| |  | |     | |____| | \\ \\| | \\ \\| |__| | | \\ \\ " + RESET);
+        System.out.println(RED + "|_____|_| \\_|_|     \\____/   |_|     |______|_|  \\_\\_|  \\_\\\\____/|_|  \\_\\" + RESET);
+        printBorder(RED);
+        System.out.println(WHITE + "INPUT ERROR" + RESET);
+        System.out.println(WHITE + message + RESET);
+        System.out.println();
+    }
+
+    private static void displayLogSavedScreen(String logFilePath) {
+        System.out.println();
+        printBorder(GREEN);
+        System.out.println(GREEN + " _      ____   _____   ______ _____ _      ______    _____         ______      ________ _____  " + RESET);
+        System.out.println(GREEN + "| |    / __ \\ / ____| |  ____|_   _| |    |  ____|  / ____|  /\\   / /  _ \\    |  ____|  __ \\ " + RESET);
+        System.out.println(GREEN + "| |   | |  | | |  __  | |__    | | | |    | |__    | (___   /  \\ / /| |_) |   | |__  | |  | |" + RESET);
+        System.out.println(GREEN + "| |   | |  | | | |_ | |  __|   | | | |    |  __|    \\___ \\ / /\\ \\ / |  _ <    |  __| | |  | |" + RESET);
+        System.out.println(GREEN + "| |___| |__| | |__| | | |     _| |_| |____| |____   ____) / ____ \\  | |_) |   | |____| |__| |" + RESET);
+        System.out.println(GREEN + "|______\\____/ \\_____| |_|    |_____|______|______| |_____/_/    \\_\\ |____/    |______|_____/ " + RESET);
+        printBorder(GREEN);
+        System.out.println(WHITE + "LOG FILE SAVED" + RESET);
+        System.out.println(WHITE + "Path: " + GREEN + logFilePath + RESET);
+        System.out.println(WHITE + "RETURNING TO MENU" + RESET);
+        System.out.println();
+    }
+
+    private static void displayTerminationScreen() {
+        System.out.println();
+        printBorder(RED);
+        System.out.println(RED + " _______ ______ _____  __  __ _____ _   _          _______ _____ ____  _   _ " + RESET);
+        System.out.println(RED + "|__   __|  ____|  __ \\|  \\/  |_   _| \\ | |   /\\   |__   __|_   _/ __ \\| \\ | |" + RESET);
+        System.out.println(RED + "   | |  | |__  | |__) | \\  / | | | |  \\| |  /  \\     | |    | || |  | |  \\| |" + RESET);
+        System.out.println(RED + "   | |  |  __| |  _  /| |\\/| | | | | . ` | / /\\ \\    | |    | || |  | | . ` |" + RESET);
+        System.out.println(RED + "   | |  | |____| | \\ \\| |  | |_| |_| |\\  |/ ____ \\   | |   _| || |__| | |\\  |" + RESET);
+        System.out.println(RED + "   |_|  |______|_|  \\_\\_|  |_|_____|_| \\_/_/    \\_\\  |_|  |_____\\____/|_| \\_|" + RESET);
+        printBorder(RED);
+        System.out.println(WHITE + "Button X pressed. Termination requested." + RESET);
+        System.out.println();
+    }
+
+    private static void displayDistanceReading(double distance) {
+        System.out.println(CYAN + "[DISTANCE]" + RESET + WHITE + " Distance to object: " + CYAN + String.format("%.2f", distance) + " cm" + RESET);
+    }
+
+    private static void displayInfo(String label, String message) {
+        System.out.println(YELLOW + "[" + label + "] " + RESET + WHITE + message + RESET);
+    }
+
+    private static void displayError(String message) {
+        System.out.println();
+        printBorder(RED);
+        System.out.println(RED + "ERROR" + RESET);
+        System.out.println(WHITE + message + RESET);
+        printBorder(RED);
+        System.out.println();
+    }
+
 
     private static class ModeSummary {//write all details of ModeSummaary
         String modeName; long durationMs; int encounters; List<String> imagePaths;

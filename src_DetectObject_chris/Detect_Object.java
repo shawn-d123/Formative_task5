@@ -630,15 +630,19 @@ public class Detect_Object {
 
     private static void displayObjectDetectedScreen(double distance) {
         System.out.println();
-        printBorder(RED);
+        System.out.println(RED + "===================================================================================================================================" + RESET);
+        System.out.println();
         System.out.println(RED + "  ____  ____       _ ______ _____ _______   _____  ______ _______ ______ _____ _______ ______ _____  " + RESET);
         System.out.println(RED + " / __ \\|  _ \\     | |  ____/ ____|__   __| |  __ \\|  ____|__   __|  ____/ ____|__   __|  ____|  __ \\ " + RESET);
         System.out.println(RED + "| |  | | |_) |    | | |__ | |       | |    | |  | | |__     | |  | |__ | |       | |  | |__  | |  | |" + RESET);
         System.out.println(RED + "| |  | |  _ < _   | |  __|| |       | |    | |  | |  __|    | |  |  __|| |       | |  |  __| | |  | |" + RESET);
         System.out.println(RED + "| |__| | |_) | |__| | |___| |____   | |    | |__| | |____   | |  | |___| |____   | |  | |____| |__| |" + RESET);
         System.out.println(RED + " \\____/|____/ \\____/|______\\_____|  |_|    |_____/|______|  |_|  |______\\_____|  |_|  |______|_____/ " + RESET);
-        printBorder(RED);
-        System.out.println(WHITE + "OBJECT DETECTED at distance: " + RED + String.format("%.2f", distance) + " cm" + RESET);
+        System.out.println();
+        System.out.println(RED + "===================================================================================================================================" + RESET);
+        System.out.println();
+        System.out.println(WHITE + "OBJECT DETECTED" + RESET);
+        System.out.println(WHITE + "Distance        : " + RED + String.format("%.2f", distance) + " cm" + RESET);
         System.out.println();
     }
 

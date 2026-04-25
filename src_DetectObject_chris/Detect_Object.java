@@ -27,6 +27,14 @@ public class Detect_Object {
 
     private static final long FIVE_MINUTES_MS = 5 * 60 * 1000L;
     private static final int ENCOUNTER_THRESHOLD = 3;
+    private static final String RESET  = "\u001B[0m";
+    private static final String RED    = "\u001B[31m";
+    private static final String GREEN  = "\u001B[32m";
+    private static final String YELLOW = "\u001B[33m";
+    private static final String BLUE   = "\u001B[34m";
+    private static final String CYAN   = "\u001B[36m";
+    private static final String WHITE  = "\u001B[37m";
+    private static final String BORDER = "========================================================================================================================";
 
     private static String currentMode = "";
     private static long currentModeStart = 0L;
@@ -43,19 +51,7 @@ public class Detect_Object {
     private enum CuriousState { WANDERING, MOVING_FORWARD, MOVING_BACKWARD, HOLDING }
 
     public static void main(String[] args) {
-    	System.out.println("________  _____________________________________________________ ________ __________      ____._______________________________");
-        System.out.println("\\______ \\ \\_   _____/\\__    ___/\\_   _____/\\_   ___ \\__    ___/ \\_____  \\\\______   \\    |    |\\_   _____/\\_   ___ \\__    ___/");
-        System.out.println(" |    |  \\ |    __)_   |    |    |    __)_ /    \\  \\/ |    |     /   |   \\|    |  _/    |    | |    __)_ /    \\  \\/ |    |   ");
-        System.out.println(" |    `   \\|        \\  |    |    |        \\\\     \\____|    |    /    |    \\    |   \\/\\__|    | |        \\\\     \\____|    |   ");
-        System.out.println("/_______  /_______  /  |____|   /_______  / \\______  /|____|    \\_______  /______  /\\________|/_______  / \\______  /|____|   ");
-        System.out.println("        \\/        \\/                    \\/         \\/                   \\/       \\/                   \\/         \\/           ");
-    
-        System.out.println();
-        System.out.println("CS1813");
-        System.out.println("Assignment - Detect Object");
-        System.out.println("Made By: Chris Das (2550446)");
-        System.out.println();
-        System.out.println();
+        displayWelcomeScreen();
         terminate = false;
         sessionFinished = false;
         buttonXListenerAttached = false;
@@ -69,11 +65,10 @@ public class Detect_Object {
         try {
             swiftBot = SwiftBotAPI.INSTANCE;
             attachButtonXListener();
-            System.out.println("[SYSTEM] Please choose the mode to run by showing the QR code.");
-            System.out.println();
+            displayModeScanScreen();
 
             while (!sessionFinished) {
-             	System.out.println("[SYSTEM] Select mode to run:");
+                displayModeScanScreen();
 //            	System.out.println("1 = Curious");
 //            	System.out.println("2 = Scaredy");
 //            	System.out.println("3 = Dubious");
@@ -93,10 +88,10 @@ public class Detect_Object {
                 else if (choice.equals("Curious SwiftBot")) runMode("Curious");
                 else if (choice.equals("Scaredy SwiftBot")) runMode("Scaredy");
                 else if (choice.equals("Dubious SwiftBot")) runMode("Dubious");
-                else {System.out.println("Not the best choice.");}
+                else { displayInvalidInputScreen("INPUT ERROR: Unrecognised QR message. Please scan a valid mode QR code."); }
             }
         } catch (Exception e) {
-            System.out.println("\nI2C disabled!");
+            displayError("I2C disabled!");
             e.printStackTrace();
             return;
         }
@@ -106,20 +101,18 @@ public class Detect_Object {
     	//attempting the scanning part
 		int attempts = 1;
 		while(attempts <=10) {
-			System.out.println("Scanning for QR code...");
-			System.out.println(attempts);
+            displayInfo("QR SCAN", "Scanning for QR code... Attempt " + attempts + " of 10");
 			try {
 				BufferedImage img = swiftBot.getQRImage();
 				String decodedMessage = swiftBot.decodeQRImage(img);
 				if (!decodedMessage.isEmpty()) {
-					System.out.println("SUCCESS: QR code found");
-					System.out.println("Decoded message: " + decodedMessage);
+                    displayInfo("MODE SELECTED", "QR code found. Decoded message: " + decodedMessage);
 					return decodedMessage;
 				}	
 				++attempts;
 				return "No QR code detected";
 			} catch (Exception e) {
-				System.out.println("Unable to find QR code...trying again...");
+                displayInfo("QR SCAN", "Unable to find QR code...trying again...");
 				++attempts;
 			}
 		}
@@ -135,7 +128,7 @@ public class Detect_Object {
         currentModeImagePaths = new ArrayList<>();
         terminate = false;
 
-        System.out.println("[SYSTEM] Starting mode: " + currentMode);
+        displayModeSelectedScreen(currentMode.toUpperCase() + " MODE ACTIVE");
         //if terminate = true exit
         while (terminate != true && !sessionFinished) {
         	//run mode according to the current mode
@@ -146,7 +139,7 @@ public class Detect_Object {
         if (terminate == true && !sessionFinished) {//if terminate is true put details in ModeSummary and execute writeFinalLogAndExit
             long duration = System.currentTimeMillis() - currentModeStart;
             sessionSummaries.add(new ModeSummary(currentMode, duration, currentModeEncounters, new ArrayList<>(currentModeImagePaths)));
-            System.out.println("[SYSTEM] Mode '" + currentMode + "' ended. Encounters: " + currentModeEncounters + " Duration (ms): " + duration);
+            displayInfo("MODE SUMMARY", "Mode '" + currentMode + "' ended. Encounters: " + currentModeEncounters + " Duration (ms): " + duration);
             writeFinalLogAndExit();
         }
     }
@@ -156,7 +149,7 @@ public class Detect_Object {
         if (!buttonXListenerAttached) {
             try {
                 swiftBot.enableButton(Button.X, () -> {
-                    System.out.println("[SYSTEM] Button X pressed -> terminating...");
+                    displayTerminationScreen();
                     terminate = true;
                     writeFinalLogAndExit();//Ultimatum for exit 
                 });
@@ -178,7 +171,8 @@ public class Detect_Object {
                     lastObjectTime = System.currentTimeMillis();//Register the time for last object found
                     setUnderlights(255,0,0);//Set underlights red
                     takePictureAndRecord();//take picture of the object
-                    System.out.println("[SCAREDY] Object detected -> running away");
+                    displayObjectDetectedScreen(distance);
+                    displayScaredyModeScreen("SCAREDY MODE ACTIVE: Object detected -> running away");
 
                     for (int i=0; i<3; i++) {//blink red 3 times
                         swiftBot.disableUnderlights();
@@ -199,7 +193,7 @@ public class Detect_Object {
                     swiftBot.move(50, 50, 1000);
                     if (System.currentTimeMillis() - lastObjectTime >= 5000) {//If no object found for 5 second changing direction
                         swiftBot.move(0,0,1000);//stop for 1 second
-                        System.out.println("[SCAREDY] Wandering in different direction");
+                        displayNoObjectScreen("SCAREDY MODE ACTIVE: Wandering in different direction");
                         swiftBot.move(40, -19, 1100);//changing into a slightly different direction
                         lastObjectTime = System.currentTimeMillis();//modifying the lastObjectTime 
                     }
@@ -212,13 +206,15 @@ public class Detect_Object {
     public static void dubious() {
         Random rand = new Random();
 		int r = rand.nextInt(2);//randomly choose between 0 and 1
-		System.out.println("[DUBIOUS] Random choice: " + r);
+        String selectedMode;
 		if (r == 1) {//if r is 1 then scaredy
-			System.out.println("[SYSTEM] ACTIVATING -> Scaredy Mode");
+            selectedMode = "Scaredy";
+            displayDubiousModeScreen(r, selectedMode);
 			runMode("Scaredy");
 		}
         else {
-        	System.out.println("[SYSTEM] ACTIVATING -> Curious Mode");
+            selectedMode = "Curious";
+            displayDubiousModeScreen(r, selectedMode);
         	runMode("Curious");
         }
     }
@@ -227,7 +223,7 @@ public class Detect_Object {
         double distance = 0.0;
         try {
             distance = swiftBot.useUltrasound();//Use ultrasound to measure distance
-            System.out.println("[SYSTEM] Distance to object: " + distance + " cm");
+            displayDistanceReading(distance);
         } catch (Exception e) { e.printStackTrace(); }
         return distance;
     }
@@ -242,14 +238,15 @@ public class Detect_Object {
 
                 // ===== NO OBJECT: WANDERING =====
                 if (distance < 0 || distance > 80) {//If distance is less than 0 or distance is greater than 80 Wander around randomly
-                    System.out.println("[CURIOUS] Wandering");
+                    displayNoObjectScreen("CURIOUS MODE ACTIVE: Wandering");
                     setUnderlights(0, 0, 255);
                     moveForward(21);
                 }
 
                 // ===== OBJECT FAR (>=34cm): MOVE FORWARD =====
                 else if (distance >= 34) { //If distance is greater than or equal to 34 cm move forward 30 cm before the object.
-                    System.out.println("[CURIOUS] Object far (" + distance + "cm) -> moving forward");
+                    displayObjectDetectedScreen(distance);
+                    displayCuriousModeScreen("CURIOUS MODE ACTIVE: Object far -> moving forward", distance);
                     setUnderlights(0, 255, 0);//Set underlights green
                     moveForward(distance); //Cover the sufficient distance
                     swiftBot.move(0, 0, 500);//Wait for 500 mini seconds
@@ -262,7 +259,8 @@ public class Detect_Object {
 
                 // ===== OBJECT AT BUFFER (≈30cm): HOLD =====
                 else if (distance > 26 && distance < 34) {
-                    System.out.println("[CURIOUS] Object at buffer (" + distance + "cm)");
+                    displayObjectDetectedScreen(distance);
+                    displayCuriousModeScreen("CURIOUS MODE ACTIVE: Object at buffer -> holding position", distance);
 
                     for (int i = 0; i < 3; i++) {//blink underlights 3 times
                         setUnderlights(0, 255, 0);
@@ -278,7 +276,8 @@ public class Detect_Object {
 
                 // ===== OBJECT TOO CLOSE (≤26cm): MOVE BACKWARD =====
                 else { // distance <= 26
-                    System.out.println("[CURIOUS] Object too close (" + distance + "cm) -> moving backward");
+                    displayObjectDetectedScreen(distance);
+                    displayCuriousModeScreen("CURIOUS MODE ACTIVE: Object too close -> moving backward", distance);
                     setUnderlights(0, 255, 0);
                     moveBackward(distance); // Cover the sufficient distance  
                     swiftBot.move(0, 0, 500);//Wait for 500 mini seconds
@@ -297,7 +296,7 @@ public class Detect_Object {
                     (System.currentTimeMillis() - lastChangeTime >= 5000 ||
                      Math.abs(newDistance - lastDistance) < 1.0)) {//If object moves for 5 seconds and does not encounter anything it shall change direction
 
-                    System.out.println("[CURIOUS] No movement -> pause & change direction");
+                    displayCuriousModeScreen("CURIOUS MODE ACTIVE: No movement -> pause & change direction", newDistance);
                     Thread.sleep(1000);//Wait for a second
                     swiftBot.move(40, -19, 1100);//change direction
                     lastChangeTime = System.currentTimeMillis();//update time
@@ -324,7 +323,7 @@ public class Detect_Object {
         try {
             BufferedImage bwImage = swiftBot.takeGrayscaleStill(ImageSize.SQUARE_480x480);//take the picture
             if (bwImage == null) {
-                System.out.println("[ERROR] Image is null");
+                displayError("Image is null");
                 return null;
             }
 
@@ -337,8 +336,8 @@ public class Detect_Object {
             currentModeImagePaths.add(filename);//store the filename we added
             currentModeEncounters++;//Add number of encounters
             if (currentModeEncounters == 1) currentModeEncountersWindowStart = System.currentTimeMillis();//register the time when the first encounter was made
-            System.out.println("[SYSTEM] Object image captured: " + filename + "[]Directory path: " + imagesDirPath + filename);
-            System.out.println("[SYSTEM] Directory path: " + imagesDirPath + "/" + filename);
+            displayInfo("OBJECT DETECTED", "Object image captured: " + filename);
+            displayInfo("IMAGE DIRECTORY", "Directory path: " + imagesDirPath);
             Thread.sleep(1000);
             return filename;
         } catch (Exception e) {
@@ -354,10 +353,10 @@ public class Detect_Object {
 
         if (currentModeEncounters > ENCOUNTER_THRESHOLD && windowElapsed <= FIVE_MINUTES_MS) {
         	//if in less then 5 min we encounter more than 3 (enocounter threshold) objects then do the following
-            System.out.println("[SYSTEM] More than " + ENCOUNTER_THRESHOLD + " objects detected in under 5 minutes while in mode: " + currentMode);
+            displayInfo("OBJECT DETECTED", "More than " + ENCOUNTER_THRESHOLD + " objects detected in under 5 minutes while in mode: " + currentMode);
 
             while (true) {
-                System.out.println("Enter 1 to change mode, 2 to terminate program (or press X to terminate): ");
+                displayModeChangePromptScreen();
                 String input = scanner.nextLine();
                 attachButtonXListener();
                 if (input.equals("2")) { //if 2 is pressed put terminate = true
@@ -366,15 +365,15 @@ public class Detect_Object {
                 }
                 else if (input.equals("1")) {//if 1 is pressed perform switchToMode
                     while (true) {
-                        System.out.println("Choose new mode: 1 = Curious, 2 = Scaredy, 3 = Dubious");
+                        displayInfo("MODE SELECTED", "Choose new mode: 1 = Curious, 2 = Scaredy, 3 = Dubious");
                         String modeChoice = scanner.nextLine().trim();//needs fixing (to qr code scanning)
                         if (modeChoice.equals("1")) { switchToMode("Curious"); return true; }
                         else if (modeChoice.equals("2")) { switchToMode("Scaredy"); return true; }
                         else if (modeChoice.equals("3")) { switchToMode("Dubious"); return true; }
-                        else System.out.println("[SYSTEM] Invalid choice. Please enter 1, 2 or 3.");
+                        else displayInvalidInputScreen("INPUT ERROR: Invalid choice. Please enter 1, 2 or 3.");
                     }
                 }
-                else { System.out.println("Please choose either type 1 or 2 (or press button x on the swiftbot)"); continue;}
+                else { displayInvalidInputScreen("INPUT ERROR: Please choose either 1 or 2 (or press Button X on SwiftBot)."); continue;}
             }
         }
         return false;
@@ -390,7 +389,7 @@ public class Detect_Object {
         currentModeEncounters = 0;
         currentModeImagePaths = new ArrayList<>();
         currentModeEncountersWindowStart = currentModeStart;
-        System.out.println("[SYSTEM] Switching to mode: " + currentMode);
+        displayModeSelectedScreen(currentMode.toUpperCase() + " MODE ACTIVE");
         runMode(currentMode);//Use runMode
     }
 

@@ -611,11 +611,20 @@ public class Detect_Object {
 
     private static void displayDubiousModeScreen(int randomChoice, String selectedMode) {
         System.out.println();
-        printBorder(YELLOW);
-        System.out.println(YELLOW + "DUBIOUS MODE ACTIVE" + RESET);
-        System.out.println(WHITE + "Random choice: " + randomChoice + RESET);
-        System.out.println(WHITE + "MODE SELECTED: " + YELLOW + selectedMode + RESET);
-        printBorder(YELLOW);
+        System.out.println(YELLOW + "===================================================================================================================================" + RESET);
+        System.out.println();
+        System.out.println(YELLOW + "  _____  _    _ ____ _____ ____  _    _  _____ " + RESET);
+        System.out.println(YELLOW + " |  __ \\| |  | |  _ \\_   _/ __ \\| |  | |/ ____|" + RESET);
+        System.out.println(YELLOW + " | |  | | |  | | |_) || || |  | | |  | | (___  " + RESET);
+        System.out.println(YELLOW + " | |  | | |  | |  _ < | || |  | | |  | |\\___ \\ " + RESET);
+        System.out.println(YELLOW + " | |__| | |__| | |_) || || |__| | |__| |____) |" + RESET);
+        System.out.println(YELLOW + " |_____/ \\____/|____/_____\\____/ \\____/|_____/ " + RESET);
+        System.out.println();
+        System.out.println(YELLOW + "===================================================================================================================================" + RESET);
+        System.out.println();
+        System.out.println(WHITE + "DUBIOUS MODE ACTIVE" + RESET);
+        System.out.println(WHITE + "Random choice    : " + YELLOW + randomChoice + RESET);
+        System.out.println(WHITE + "MODE SELECTED    : " + YELLOW + selectedMode + RESET);
         System.out.println();
     }
 

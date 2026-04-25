@@ -65,7 +65,6 @@ public class Detect_Object {
         try {
             swiftBot = SwiftBotAPI.INSTANCE;
             attachButtonXListener();
-            displayModeScanScreen();
 
             while (!sessionFinished) {
                 displayModeScanScreen();
@@ -172,7 +171,7 @@ public class Detect_Object {
                     setUnderlights(255,0,0);//Set underlights red
                     takePictureAndRecord();//take picture of the object
                     displayObjectDetectedScreen(distance);
-                    displayScaredyModeScreen("SCAREDY MODE ACTIVE: Object detected -> running away");
+                    displayScaredyModeScreen("Object detected -> running away");
 
                     for (int i=0; i<3; i++) {//blink red 3 times
                         swiftBot.disableUnderlights();
@@ -193,7 +192,7 @@ public class Detect_Object {
                     swiftBot.move(50, 50, 1000);
                     if (System.currentTimeMillis() - lastObjectTime >= 5000) {//If no object found for 5 second changing direction
                         swiftBot.move(0,0,1000);//stop for 1 second
-                        displayNoObjectScreen("SCAREDY MODE ACTIVE: Wandering in different direction");
+                        displayNoObjectScreen("SCAREDY MODE ACTIVE");
                         swiftBot.move(40, -19, 1100);//changing into a slightly different direction
                         lastObjectTime = System.currentTimeMillis();//modifying the lastObjectTime 
                     }
@@ -238,7 +237,7 @@ public class Detect_Object {
 
                 // ===== NO OBJECT: WANDERING =====
                 if (distance < 0 || distance > 80) {//If distance is less than 0 or distance is greater than 80 Wander around randomly
-                    displayNoObjectScreen("CURIOUS MODE ACTIVE: Wandering");
+                    displayNoObjectScreen("CURIOUS MODE ACTIVE");
                     setUnderlights(0, 0, 255);
                     moveForward(21);
                 }
@@ -246,7 +245,7 @@ public class Detect_Object {
                 // ===== OBJECT FAR (>=34cm): MOVE FORWARD =====
                 else if (distance >= 34) { //If distance is greater than or equal to 34 cm move forward 30 cm before the object.
                     displayObjectDetectedScreen(distance);
-                    displayCuriousModeScreen("CURIOUS MODE ACTIVE: Object far -> moving forward", distance);
+                    displayCuriousModeScreen("Object far -> moving forward", distance);
                     setUnderlights(0, 255, 0);//Set underlights green
                     moveForward(distance); //Cover the sufficient distance
                     swiftBot.move(0, 0, 500);//Wait for 500 mini seconds
@@ -260,7 +259,7 @@ public class Detect_Object {
                 // ===== OBJECT AT BUFFER (≈30cm): HOLD =====
                 else if (distance > 26 && distance < 34) {
                     displayObjectDetectedScreen(distance);
-                    displayCuriousModeScreen("CURIOUS MODE ACTIVE: Object at buffer -> holding position", distance);
+                    displayCuriousModeScreen("Object at buffer -> holding position", distance);
 
                     for (int i = 0; i < 3; i++) {//blink underlights 3 times
                         setUnderlights(0, 255, 0);
@@ -277,7 +276,7 @@ public class Detect_Object {
                 // ===== OBJECT TOO CLOSE (≤26cm): MOVE BACKWARD =====
                 else { // distance <= 26
                     displayObjectDetectedScreen(distance);
-                    displayCuriousModeScreen("CURIOUS MODE ACTIVE: Object too close -> moving backward", distance);
+                    displayCuriousModeScreen("Object too close -> moving backward", distance);
                     setUnderlights(0, 255, 0);
                     moveBackward(distance); // Cover the sufficient distance  
                     swiftBot.move(0, 0, 500);//Wait for 500 mini seconds
@@ -296,7 +295,7 @@ public class Detect_Object {
                     (System.currentTimeMillis() - lastChangeTime >= 5000 ||
                      Math.abs(newDistance - lastDistance) < 1.0)) {//If object moves for 5 seconds and does not encounter anything it shall change direction
 
-                    displayCuriousModeScreen("CURIOUS MODE ACTIVE: No movement -> pause & change direction", newDistance);
+                    displayCuriousModeScreen("No movement -> pause & change direction", newDistance);
                     Thread.sleep(1000);//Wait for a second
                     swiftBot.move(40, -19, 1100);//change direction
                     lastChangeTime = System.currentTimeMillis();//update time
@@ -366,6 +365,7 @@ public class Detect_Object {
                 else if (input.equals("1")) {//if 1 is pressed perform switchToMode
                     while (true) {
                         displayInfo("MODE SELECTED", "Choose new mode: 1 = Curious, 2 = Scaredy, 3 = Dubious");
+                        displayInfo("MODE SELECTED", "Enter choice (1/2/3):");
                         String modeChoice = scanner.nextLine().trim();//needs fixing (to qr code scanning)
                         if (modeChoice.equals("1")) { switchToMode("Curious"); return true; }
                         else if (modeChoice.equals("2")) { switchToMode("Scaredy"); return true; }
@@ -648,7 +648,7 @@ public class Detect_Object {
 
     private static void displayNoObjectScreen(String modeName) {
         System.out.println();
-        System.out.println(BLUE + "===================================================================================================================================" + RESET);
+        System.out.println(BLUE + "===================================================================================================================================" + "============" + RESET);
         System.out.println();
         System.out.println(BLUE + "  _   _  ____     ____  ____       _ ______ _____  _____ _______    _____ ______          _____   _____ _    _ _____ _   _  _____ " + RESET);
         System.out.println(BLUE + " | \\ | |/ __ \\   / __ \\|  _ \\     | |  ____/ ____|/ ____|__   __|  / ____|  ____|   /\\   |  __ \\ / ____| |  | |_   _| \\ | |/ ____|" + RESET);
@@ -657,7 +657,7 @@ public class Detect_Object {
         System.out.println(BLUE + " | |\\  | |__| | | |__| | |_) | |__| | |___| |____| |____   | |     ____) | |____ / ____ \\| | \\ \\| |____| |  | |_| |_| |\\  | |__| |" + RESET);
         System.out.println(BLUE + " |_| \\_|\\____/   \\____/|____/ \\____/|______\\_____|\\_____|  |_|    |_____/|______/_/    \\_\\_|  \\_\\\\_____|_|  |_|_____|_| \\_|\\_____|" + RESET);
         System.out.println();
-        System.out.println(BLUE + "===================================================================================================================================" + RESET);
+        System.out.println(BLUE + "===================================================================================================================================" + "============" + RESET);
         System.out.println();
         System.out.println(WHITE + modeName + RESET);
         System.out.println(WHITE + "Status          : " + BLUE + "No object in active range. Wandering/searching..." + RESET);

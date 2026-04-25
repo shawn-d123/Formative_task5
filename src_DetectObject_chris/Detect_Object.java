@@ -556,34 +556,56 @@ public class Detect_Object {
 
     private static void displayModeSelectedScreen(String modeLabel) {
         System.out.println();
-        printBorder(GREEN);
-        System.out.println(GREEN + " __  __  ____  _____  ______    _____ ______ _      ______ _____ _______ ______ _____  " + RESET);
-        System.out.println(GREEN + "|  \\/  |/ __ \\|  __ \\|  ____|  / ____|  ____| |    |  ____/ ____|__   __|  ____|  __ \\ " + RESET);
-        System.out.println(GREEN + "| \\  / | |  | | |  | | |__    | (___ | |__  | |    | |__ | |       | |  | |__  | |  | |" + RESET);
-        System.out.println(GREEN + "| |\\/| | |  | | |  | |  __|    \\___ \\|  __| | |    |  __|| |       | |  |  __| | |  | |" + RESET);
-        System.out.println(GREEN + "| |  | | |__| | |__| | |____   ____) | |____| |____| |___| |____   | |  | |____| |__| |" + RESET);
-        System.out.println(GREEN + "|_|  |_|\\____/|_____/|______| |_____/|______|______|______\\_____|  |_|  |______|_____/ " + RESET);
-        printBorder(GREEN);
+        System.out.println(GREEN + "===================================================================================================================================" + RESET);
+        System.out.println();
+        System.out.println(GREEN + " __  __  ____  _____  ______      _____ ______ _      ______ _____ _______ ______ _____  " + RESET);
+        System.out.println(GREEN + "|  \\/  |/ __ \\|  __ \\|  ____|    / ____|  ____| |    |  ____/ ____|__   __|  ____|  __ \\ " + RESET);
+        System.out.println(GREEN + "| \\  / | |  | | |  | | |__      | (___ | |__  | |    | |__ | |       | |  | |__  | |  | |" + RESET);
+        System.out.println(GREEN + "| |\\/| | |  | | |  | |  __|      \\___ \\|  __| | |    |  __|| |       | |  |  __| | |  | |" + RESET);
+        System.out.println(GREEN + "| |  | | |__| | |__| | |____     ____) | |____| |____| |___| |____   | |  | |____| |__| |" + RESET);
+        System.out.println(GREEN + "|_|  |_|\\____/|_____/|______|   |_____/|______|______|______\\_____|  |_|  |______|_____/ " + RESET);
+        System.out.println();
+        System.out.println(GREEN + "===================================================================================================================================" + RESET);
+        System.out.println();
         System.out.println(WHITE + "MODE SELECTED : " + GREEN + modeLabel + RESET);
+        System.out.println(WHITE + "SYSTEM STATUS : " + GREEN + "READY" + RESET);
         System.out.println();
     }
 
     private static void displayCuriousModeScreen(String status, double distance) {
         System.out.println();
-        printBorder(GREEN);
-        System.out.println(GREEN + "CURIOUS MODE ACTIVE" + RESET);
-        System.out.println(WHITE + status + RESET);
-        System.out.println(WHITE + "Distance: " + GREEN + String.format("%.2f", distance) + " cm" + RESET);
-        printBorder(GREEN);
+        System.out.println(GREEN + "===================================================================================================================================" + RESET);
+        System.out.println();
+        System.out.println(GREEN + "   _____ _    _ _____  _____ ____   _    _  _____ " + RESET);
+        System.out.println(GREEN + "  / ____| |  | |  __ \\|_   _/ __ \\ | |  | |/ ____|" + RESET);
+        System.out.println(GREEN + " | |    | |  | | |__) | | || |  | || |  | | (___  " + RESET);
+        System.out.println(GREEN + " | |    | |  | |  _  /  | || |  | || |  | |\\___ \\ " + RESET);
+        System.out.println(GREEN + " | |____| |__| | | \\ \\ _| || |__| || |__| |____) |" + RESET);
+        System.out.println(GREEN + "  \\_____|\\____/|_|  \\_\\_____\\____/  \\____/|_____/ " + RESET);
+        System.out.println();
+        System.out.println(GREEN + "===================================================================================================================================" + RESET);
+        System.out.println();
+        System.out.println(WHITE + "CURIOUS MODE ACTIVE" + RESET);
+        System.out.println(WHITE + "Status          : " + GREEN + status + RESET);
+        System.out.println(WHITE + "Distance        : " + GREEN + String.format("%.2f", distance) + " cm" + RESET);
         System.out.println();
     }
 
     private static void displayScaredyModeScreen(String status) {
         System.out.println();
-        printBorder(RED);
-        System.out.println(RED + "SCAREDY MODE ACTIVE" + RESET);
-        System.out.println(WHITE + status + RESET);
-        printBorder(RED);
+        System.out.println(RED + "===================================================================================================================================" + RESET);
+        System.out.println();
+        System.out.println(RED + "   _____  _____          _______ _______     __" + RESET);
+        System.out.println(RED + "  / ____|/ ____|   /\\   |__   __|  __ \\ \\   / /" + RESET);
+        System.out.println(RED + " | (___ | |       /  \\     | |  | |__) \\ \\_/ / " + RESET);
+        System.out.println(RED + "  \\___ \\| |      / /\\ \\    | |  |  _  / \\   /  " + RESET);
+        System.out.println(RED + "  ____) | |____ / ____ \\   | |  | | \\ \\  | |   " + RESET);
+        System.out.println(RED + " |_____/ \\_____/_/    \\_\\  |_|  |_|  \\_\\ |_|   " + RESET);
+        System.out.println();
+        System.out.println(RED + "===================================================================================================================================" + RESET);
+        System.out.println();
+        System.out.println(WHITE + "SCAREDY MODE ACTIVE" + RESET);
+        System.out.println(WHITE + "Status          : " + RED + status + RESET);
         System.out.println();
     }
 

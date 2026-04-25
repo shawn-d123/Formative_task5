@@ -424,7 +424,7 @@ public class Detect_Object {
 
         sessionFinished = true;
         terminate = true;
-    	System.out.println("[SYSTEM] Writing to log file");
+        displayInfo("LOGGING", "Writing to log file...");
         try {
             long now = System.currentTimeMillis();//the current time in milli second
             if (currentMode != null && !currentMode.isEmpty()) {//if currentMode contains something
@@ -462,7 +462,7 @@ public class Detect_Object {
             }
 
             bw.flush(); bw.close();
-            System.out.println("[SYSTEM] Log file name and directory: " + logFilePath);//print this
+            displayLogSavedScreen(logFilePath);
 
             // Backup log and images
             List<String> allImages = new ArrayList<>();//in this store all image paths
@@ -483,7 +483,7 @@ public class Detect_Object {
         Path backupDir = Paths.get(backupDirPath);
         Files.createDirectories(backupDir);
 
-        System.out.println("[SYSTEM] Backup folder created: " + backupDirPath);
+        displayInfo("BACKUP", "Backup folder created: " + backupDirPath);
 
         // Backup log file
         if (logFilePath != null && !logFilePath.isEmpty()) {
@@ -492,7 +492,7 @@ public class Detect_Object {
             if (Files.exists(sourceLog)) {
                 Path targetLog = backupDir.resolve(sourceLog.getFileName());
                 Files.copy(sourceLog, targetLog, StandardCopyOption.REPLACE_EXISTING);
-                System.out.println("[SYSTEM] Log file backed up: " + targetLog);
+                displayInfo("BACKUP", "Log file backed up: " + targetLog);
             }
         }
 
@@ -508,12 +508,12 @@ public class Detect_Object {
                     Path targetImg = backupDir.resolve(fileName);
 
                     Files.copy(sourceImg, targetImg, StandardCopyOption.REPLACE_EXISTING);
-                    System.out.println("[SYSTEM] Image backed up: " + targetImg);
+                    displayInfo("BACKUP", "Image backed up: " + targetImg);
                 }
             }
         }
 
-        System.out.println("[SYSTEM] Backup completed successfully.");
+        displayInfo("BACKUP", "Backup completed successfully.");
     }
 
 

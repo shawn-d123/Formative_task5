@@ -648,10 +648,19 @@ public class Detect_Object {
 
     private static void displayNoObjectScreen(String modeName) {
         System.out.println();
-        printBorder(BLUE);
-        System.out.println(BLUE + modeName + RESET);
-        System.out.println(WHITE + "No object in active range. Wandering/searching..." + RESET);
-        printBorder(BLUE);
+        System.out.println(BLUE + "===================================================================================================================================" + RESET);
+        System.out.println();
+        System.out.println(BLUE + "  _   _  ____     ____  ____       _ ______ _____  _____ _______    _____ ______          _____   _____ _    _ _____ _   _  _____ " + RESET);
+        System.out.println(BLUE + " | \\ | |/ __ \\   / __ \\|  _ \\     | |  ____/ ____|/ ____|__   __|  / ____|  ____|   /\\   |  __ \\ / ____| |  | |_   _| \\ | |/ ____|" + RESET);
+        System.out.println(BLUE + " |  \\| | |  | | | |  | | |_) |    | | |__ | |    | |       | |    | (___ | |__     /  \\  | |__) | |    | |__| | | | |  \\| | |  __ " + RESET);
+        System.out.println(BLUE + " | . ` | |  | | | |  | |  _ < _   | |  __|| |    | |       | |     \\___ \\|  __|   / /\\ \\ |  _  /| |    |  __  | | | | . ` | | |_ |" + RESET);
+        System.out.println(BLUE + " | |\\  | |__| | | |__| | |_) | |__| | |___| |____| |____   | |     ____) | |____ / ____ \\| | \\ \\| |____| |  | |_| |_| |\\  | |__| |" + RESET);
+        System.out.println(BLUE + " |_| \\_|\\____/   \\____/|____/ \\____/|______\\_____|\\_____|  |_|    |_____/|______/_/    \\_\\_|  \\_\\\\_____|_|  |_|_____|_| \\_|\\_____|" + RESET);
+        System.out.println();
+        System.out.println(BLUE + "===================================================================================================================================" + RESET);
+        System.out.println();
+        System.out.println(WHITE + modeName + RESET);
+        System.out.println(WHITE + "Status          : " + BLUE + "No object in active range. Wandering/searching..." + RESET);
         System.out.println();
     }
 

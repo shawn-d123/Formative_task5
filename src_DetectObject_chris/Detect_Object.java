@@ -538,16 +538,19 @@ public class Detect_Object {
 
     private static void displayModeScanScreen() {
         System.out.println();
-        printBorder(CYAN);
-        System.out.println(CYAN + " __  __  ____  _____  ______    _____  _____          _   _ " + RESET);
-        System.out.println(CYAN + "|  \\/  |/ __ \\|  __ \\|  ____|  / ____|/ ____|   /\\   | \\ | |" + RESET);
-        System.out.println(CYAN + "| \\  / | |  | | |  | | |__    | (___ | |       /  \\  |  \\| |" + RESET);
-        System.out.println(CYAN + "| |\\/| | |  | | |  | |  __|    \\___ \\| |      / /\\ \\ | . ` |" + RESET);
-        System.out.println(CYAN + "| |  | | |__| | |__| | |____   ____) | |____ / ____ \\| |\\  |" + RESET);
-        System.out.println(CYAN + "|_|  |_|\\____/|_____/|______| |_____/ \\_____/_/    \\_\\_| \\_|" + RESET);
-        printBorder(CYAN);
-        System.out.println(WHITE + "Please choose the mode by showing a QR code." + RESET);
-        System.out.println(WHITE + "Valid QR values: Curious SwiftBot | Scaredy SwiftBot | Dubious SwiftBot | Exit" + RESET);
+        System.out.println(CYAN + "===================================================================================================================================" + RESET);
+        System.out.println();
+        System.out.println(CYAN + "  __  __  ____  _____  ______      _____  _____          _   _ " + RESET);
+        System.out.println(CYAN + " |  \\/  |/ __ \\|  __ \\|  ____|    / ____|/ ____|   /\\   | \\ | |" + RESET);
+        System.out.println(CYAN + " | \\  / | |  | | |  | | |__      | (___ | |       /  \\  |  \\| |" + RESET);
+        System.out.println(CYAN + " | |\\/| | |  | | |  | |  __|      \\___ \\| |      / /\\ \\ | . ` |" + RESET);
+        System.out.println(CYAN + " | |  | | |__| | |__| | |____     ____) | |____ / ____ \\| |\\  |" + RESET);
+        System.out.println(CYAN + " |_|  |_|\\____/|_____/|______|   |_____/ \\_____/_/    \\_\\_| \\_|" + RESET);
+        System.out.println();
+        System.out.println(CYAN + "===================================================================================================================================" + RESET);
+        System.out.println();
+        System.out.println(WHITE + "Scan QR code to choose operating mode." + RESET);
+        System.out.println(WHITE + "Accepted QR values : " + CYAN + "Curious SwiftBot | Scaredy SwiftBot | Dubious SwiftBot | Exit" + RESET);
         System.out.println();
     }
 

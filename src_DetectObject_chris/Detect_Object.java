@@ -536,7 +536,7 @@ public class Detect_Object {
 
     private static void displayModeScanScreen() {
         System.out.println();
-        System.out.println(CYAN + "===================================================================================================================================" + RESET);
+        System.out.println(CYAN + "=====================================================================================" + RESET);
         System.out.println();
         System.out.println(CYAN + "  __  __  ____  _____  ______      _____  _____          _   _ " + RESET);
         System.out.println(CYAN + " |  \\/  |/ __ \\|  __ \\|  ____|    / ____|/ ____|   /\\   | \\ | |" + RESET);
@@ -545,7 +545,7 @@ public class Detect_Object {
         System.out.println(CYAN + " | |  | | |__| | |__| | |____     ____) | |____ / ____ \\| |\\  |" + RESET);
         System.out.println(CYAN + " |_|  |_|\\____/|_____/|______|   |_____/ \\_____/_/    \\_\\_| \\_|" + RESET);
         System.out.println();
-        System.out.println(CYAN + "===================================================================================================================================" + RESET);
+        System.out.println(CYAN + "=====================================================================================" + RESET);
         System.out.println();
         System.out.println(WHITE + "Scan QR code to choose operating mode." + RESET);
         System.out.println(WHITE + "Accepted QR values : " + CYAN + "Curious SwiftBot | Scaredy SwiftBot | Dubious SwiftBot | Exit" + RESET);
@@ -554,7 +554,7 @@ public class Detect_Object {
 
     private static void displayModeSelectedScreen(String modeLabel) {
         System.out.println();
-        System.out.println(GREEN + "===================================================================================================================================" + RESET);
+        System.out.println(GREEN + "==================================================================================================================" + RESET);
         System.out.println();
         System.out.println(GREEN + " __  __  ____  _____  ______      _____ ______ _      ______ _____ _______ ______ _____  " + RESET);
         System.out.println(GREEN + "|  \\/  |/ __ \\|  __ \\|  ____|    / ____|  ____| |    |  ____/ ____|__   __|  ____|  __ \\ " + RESET);
@@ -563,7 +563,7 @@ public class Detect_Object {
         System.out.println(GREEN + "| |  | | |__| | |__| | |____     ____) | |____| |____| |___| |____   | |  | |____| |__| |" + RESET);
         System.out.println(GREEN + "|_|  |_|\\____/|_____/|______|   |_____/|______|______|______\\_____|  |_|  |______|_____/ " + RESET);
         System.out.println();
-        System.out.println(GREEN + "===================================================================================================================================" + RESET);
+        System.out.println(GREEN + "================================================================================================================" + RESET);
         System.out.println();
         System.out.println(WHITE + "MODE SELECTED : " + GREEN + modeLabel + RESET);
         System.out.println(WHITE + "SYSTEM STATUS : " + GREEN + "READY" + RESET);
@@ -572,7 +572,7 @@ public class Detect_Object {
 
     private static void displayCuriousModeScreen(String status, double distance) {
         System.out.println();
-        System.out.println(GREEN + "===================================================================================================================================" + RESET);
+        System.out.println(GREEN + "=============================================================================" + RESET);
         System.out.println();
         System.out.println(GREEN + "   _____ _    _ _____  _____ ____   _    _  _____ " + RESET);
         System.out.println(GREEN + "  / ____| |  | |  __ \\|_   _/ __ \\ | |  | |/ ____|" + RESET);
@@ -581,7 +581,7 @@ public class Detect_Object {
         System.out.println(GREEN + " | |____| |__| | | \\ \\ _| || |__| || |__| |____) |" + RESET);
         System.out.println(GREEN + "  \\_____|\\____/|_|  \\_\\_____\\____/  \\____/|_____/ " + RESET);
         System.out.println();
-        System.out.println(GREEN + "===================================================================================================================================" + RESET);
+        System.out.println(GREEN + "=============================================================================" + RESET);
         System.out.println();
         System.out.println(WHITE + "CURIOUS MODE ACTIVE" + RESET);
         System.out.println(WHITE + "Status          : " + GREEN + status + RESET);
@@ -591,7 +591,7 @@ public class Detect_Object {
 
     private static void displayScaredyModeScreen(String status) {
         System.out.println();
-        System.out.println(RED + "===================================================================================================================================" + RESET);
+        System.out.println(RED + "==============================================================================" + RESET);
         System.out.println();
         System.out.println(RED + "   _____  _____          _______ _______     __" + RESET);
         System.out.println(RED + "  / ____|/ ____|   /\\   |__   __|  __ \\ \\   / /" + RESET);
@@ -600,7 +600,7 @@ public class Detect_Object {
         System.out.println(RED + "  ____) | |____ / ____ \\   | |  | | \\ \\  | |   " + RESET);
         System.out.println(RED + " |_____/ \\_____/_/    \\_\\  |_|  |_|  \\_\\ |_|   " + RESET);
         System.out.println();
-        System.out.println(RED + "===================================================================================================================================" + RESET);
+        System.out.println(RED + "===============================================================================" + RESET);
         System.out.println();
         System.out.println(WHITE + "SCAREDY MODE ACTIVE" + RESET);
         System.out.println(WHITE + "Status          : " + RED + status + RESET);
@@ -609,7 +609,7 @@ public class Detect_Object {
 
     private static void displayDubiousModeScreen(int randomChoice, String selectedMode) {
         System.out.println();
-        System.out.println(YELLOW + "===================================================================================================================================" + RESET);
+        System.out.println(YELLOW + "====================================================================================" + RESET);
         System.out.println();
         System.out.println(YELLOW + "  _____  _    _ ____ _____ ____  _    _  _____ " + RESET);
         System.out.println(YELLOW + " |  __ \\| |  | |  _ \\_   _/ __ \\| |  | |/ ____|" + RESET);
@@ -618,7 +618,7 @@ public class Detect_Object {
         System.out.println(YELLOW + " | |__| | |__| | |_) || || |__| | |__| |____) |" + RESET);
         System.out.println(YELLOW + " |_____/ \\____/|____/_____\\____/ \\____/|_____/ " + RESET);
         System.out.println();
-        System.out.println(YELLOW + "===================================================================================================================================" + RESET);
+        System.out.println(YELLOW + "====================================================================================" + RESET);
         System.out.println();
         System.out.println(WHITE + "DUBIOUS MODE ACTIVE" + RESET);
         System.out.println(WHITE + "Random choice    : " + YELLOW + randomChoice + RESET);

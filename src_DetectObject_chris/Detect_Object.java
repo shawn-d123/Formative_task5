@@ -34,8 +34,6 @@ public class Detect_Object {
     private static final String CYAN   = "\u001B[36m";
     private static final String WHITE  = "\u001B[37m";
 
-    private static final String BORDER = "========================================================================================================================";
-
     private static String currentMode = "";
     private static long currentModeStart = 0L;
     private static int currentModeEncounters = 0;
@@ -587,20 +585,16 @@ public class Detect_Object {
         displayInfo("BACKUP", "Backup completed successfully.");
     }
 
-    private static void printBorder(String colour) {
-        System.out.println(colour + BORDER + RESET);
-    }
-
     private static void displayWelcomeScreen() {
         System.out.println();
-        printBorder(CYAN);
+        System.out.println(CYAN + "========================================================================================" + RESET);
         System.out.println(CYAN + "  _____  ______ _______ ______ _____ _______    ____  ____       _ ______ _____ _______ " + RESET);
         System.out.println(CYAN + " |  __ \\|  ____|__   __|  ____/ ____|__   __|  / __ \\|  _ \\     | |  ____/ ____|__   __|" + RESET);
         System.out.println(CYAN + " | |  | | |__     | |  | |__ | |       | |    | |  | | |_) |    | | |__ | |       | |   " + RESET);
         System.out.println(CYAN + " | |  | |  __|    | |  |  __|| |       | |    | |  | |  _ < _   | |  __|| |       | |   " + RESET);
         System.out.println(CYAN + " | |__| | |____   | |  | |___| |____   | |    | |__| | |_) | |__| | |___| |____   | |   " + RESET);
         System.out.println(CYAN + " |_____/|______|  |_|  |______\\_____|  |_|     \\____/|____/ \\____/|______\\_____|  |_|   " + RESET);
-        printBorder(CYAN);
+        System.out.println(CYAN + "========================================================================================" + RESET);
         System.out.println(WHITE + "CS1813" + RESET);
         System.out.println(WHITE + "Assignment - Detect Object" + RESET);
         System.out.println(WHITE + "Made By: Chris Das (2550446)" + RESET);
@@ -738,23 +732,23 @@ public class Detect_Object {
 
     private static void displayModeChangePromptScreen() {
         System.out.println();
-        printBorder(YELLOW);
+        System.out.println(YELLOW + "========================================================================" + RESET);
         System.out.println(YELLOW + "MODE CHANGE PROMPT" + RESET);
         System.out.println(WHITE + "Enter 1 to change mode, 2 to terminate program, or press X to terminate." + RESET);
-        printBorder(YELLOW);
+        System.out.println(YELLOW + "========================================================================" + RESET);
         System.out.print(WHITE + "Enter choice: " + RESET);
     }
 
     private static void displayInvalidInputScreen(String message) {
         System.out.println();
-        printBorder(RED);
+        System.out.println(RED + "=========================================================================" + RESET);
         System.out.println(RED + " _____ _   _ _____  _    _ _______    ______ _____  _____   ____  _____  " + RESET);
         System.out.println(RED + "|_   _| \\ | |  __ \\| |  | |__   __|  |  ____|  __ \\|  __ \\ / __ \\|  __ \\ " + RESET);
         System.out.println(RED + "  | | |  \\| | |__) | |  | |  | |     | |__  | |__) | |__) | |  | | |__) |" + RESET);
         System.out.println(RED + "  | | | . ` |  ___/| |  | |  | |     |  __| |  _  /|  _  /| |  | |  _  / " + RESET);
         System.out.println(RED + " _| |_| |\\  | |    | |__| |  | |     | |____| | \\ \\| | \\ \\| |__| | | \\ \\ " + RESET);
         System.out.println(RED + "|_____|_| \\_|_|     \\____/   |_|     |______|_|  \\_\\_|  \\_\\\\____/|_|  \\_\\" + RESET);
-        printBorder(RED);
+        System.out.println(RED + "=========================================================================" + RESET);
         System.out.println(WHITE + "INPUT ERROR" + RESET);
         System.out.println(WHITE + message + RESET);
         System.out.println();
@@ -762,14 +756,14 @@ public class Detect_Object {
 
     private static void displayLogSavedScreen(String logFilePath) {
         System.out.println();
-        printBorder(GREEN);
+        System.out.println(GREEN + "===============================================================================================" + RESET);
         System.out.println(GREEN + " _      ____   _____   ______ _____ _      ______    _____         ______      ________ _____  " + RESET);
         System.out.println(GREEN + "| |    / __ \\ / ____| |  ____|_   _| |    |  ____|  / ____|  /\\   / /  _ \\    |  ____|  __ \\ " + RESET);
         System.out.println(GREEN + "| |   | |  | | |  __  | |__    | | | |    | |__    | (___   /  \\ / /| |_) |   | |__  | |  | |" + RESET);
         System.out.println(GREEN + "| |   | |  | | | |_ | |  __|   | | | |    |  __|    \\___ \\ / /\\ \\ / |  _ <    |  __| | |  | |" + RESET);
         System.out.println(GREEN + "| |___| |__| | |__| | | |     _| |_| |____| |____   ____) / ____ \\  | |_) |   | |____| |__| |" + RESET);
         System.out.println(GREEN + "|______\\____/ \\_____| |_|    |_____|______|______| |_____/_/    \\_\\ |____/    |______|_____/ " + RESET);
-        printBorder(GREEN);
+        System.out.println(GREEN + "===============================================================================================" + RESET);
         System.out.println(WHITE + "LOG FILE SAVED" + RESET);
         System.out.println(WHITE + "Path: " + GREEN + logFilePath + RESET);
         System.out.println(WHITE + "RETURNING TO MENU" + RESET);
@@ -778,14 +772,14 @@ public class Detect_Object {
 
     private static void displayTerminationScreen() {
         System.out.println();
-        printBorder(RED);
+        System.out.println(RED + "=============================================================================" + RESET);
         System.out.println(RED + " _______ ______ _____  __  __ _____ _   _          _______ _____ ____  _   _ " + RESET);
         System.out.println(RED + "|__   __|  ____|  __ \\|  \\/  |_   _| \\ | |   /\\   |__   __|_   _/ __ \\| \\ | |" + RESET);
         System.out.println(RED + "   | |  | |__  | |__) | \\  / | | | |  \\| |  /  \\     | |    | || |  | |  \\| |" + RESET);
         System.out.println(RED + "   | |  |  __| |  _  /| |\\/| | | | | . ` | / /\\ \\    | |    | || |  | | . ` |" + RESET);
         System.out.println(RED + "   | |  | |____| | \\ \\| |  | |_| |_| |\\  |/ ____ \\   | |   _| || |__| | |\\  |" + RESET);
         System.out.println(RED + "   |_|  |______|_|  \\_\\_|  |_|_____|_| \\_/_/    \\_\\  |_|  |_____\\____/|_| \\_|" + RESET);
-        printBorder(RED);
+        System.out.println(RED + "=============================================================================" + RESET);
         System.out.println(WHITE + "Button X pressed. Termination requested." + RESET);
         System.out.println();
     }
@@ -800,10 +794,10 @@ public class Detect_Object {
 
     private static void displayError(String message) {
         System.out.println();
-        printBorder(RED);
+        System.out.println(RED + "=====" + RESET);
         System.out.println(RED + "ERROR" + RESET);
         System.out.println(WHITE + message + RESET);
-        printBorder(RED);
+        System.out.println(RED + "=====" + RESET);
         System.out.println();
     }
 

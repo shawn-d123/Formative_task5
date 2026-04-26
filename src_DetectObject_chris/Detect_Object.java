@@ -609,7 +609,7 @@ public class Detect_Object {
 
     private static void displayModeScanScreen() {
         System.out.println();
-        System.out.println(CYAN + "=====================================================================================" + RESET);
+        System.out.println(CYAN + "================================================================================" + RESET);
         System.out.println();
         System.out.println(CYAN + "  __  __  ____  _____  ______      _____  _____          _   _ " + RESET);
         System.out.println(CYAN + " |  \\/  |/ __ \\|  __ \\|  ____|    / ____|/ ____|   /\\   | \\ | |" + RESET);
@@ -618,7 +618,7 @@ public class Detect_Object {
         System.out.println(CYAN + " | |  | | |__| | |__| | |____     ____) | |____ / ____ \\| |\\  |" + RESET);
         System.out.println(CYAN + " |_|  |_|\\____/|_____/|______|   |_____/ \\_____/_/    \\_\\_| \\_|" + RESET);
         System.out.println();
-        System.out.println(CYAN + "=====================================================================================" + RESET);
+        System.out.println(CYAN + "================================================================================" + RESET);
         System.out.println();
         System.out.println(WHITE + "Scan QR code to choose operating mode." + RESET);
         System.out.println(WHITE + "Accepted QR values :" + RESET);

@@ -13,7 +13,7 @@ import java.util.*;
 public class SpyBot {
 
     public static void main(String[] args) {
-        UI.printBanner();
+        UI.displayWelcomeScreen();
 
         // Set up all the main components the program needs
         SwiftBotController controller = new SwiftBotController();
@@ -45,8 +45,8 @@ public class SpyBot {
 
         // Save the log before shutting down and tell the user where it is
         logger.writeLog();
-        UI.print("Log saved to: " + logger.getLogPath());
-        UI.print("SpyBot shutting down. Stay covert.");
+        UI.displayLogSavedScreen(logger.getLogPath());
+        UI.displayTerminationScreen();
         controller.shutdown();
     }
 
@@ -61,26 +61,22 @@ public class SpyBot {
                                    AgentRegistry registry,
                                    MessageManager msgManager,
                                    Logger logger) {
-        UI.printSeparator();
-        UI.print("SEND MESSAGE");
-        UI.print("Scan your agent QR code to authenticate.");
+        UI.displayAuthenticationScreen(
+                "SENDER VERIFICATION",
+                "Scan your agent QR code to authenticate."
+        );
 
         String qrData = controller.scanQRCode();
         Agent sender  = Authenticator.authenticate(qrData, registry);
 
         if (sender == null) {
-            UI.printError("Authentication failed. Returning to main menu.");
+            UI.displayAuthenticationFailedScreen();
+            UI.displayInvalidInputScreen("Authentication failed. Returning to main menu.");
             return;
         }
 
-        UI.print("Authenticated: " + sender.getCallSign() + " @ " + sender.getLocation());
-        UI.printSeparator();
-        UI.print("Enter your message in Morse code:");
-        UI.print("  X = dot (.)    Y = dash (-)");
-        UI.print("  A = end of character    B = end of word");
-        UI.print("  End of message = enter Morse for 0 (5 dashes): press Y five times then A");
-        UI.print("  FIRST WORD must be the DESTINATION (A, B, or C).");
-        UI.printSeparator();
+        UI.displayAuthenticationSuccessScreen(sender.getCallSign(), sender.getLocation());
+        UI.displayMorseInputInstructionsScreen();
 
         MorseCodec  codec      = new MorseCodec();
         MorseInput  morseInput = new MorseInput(controller);
@@ -92,10 +88,11 @@ public class SpyBot {
             return;
         }
 
+        UI.displayMessageProcessingScreen();
         String plainText = codec.decode(morseRaw);
 
         if (plainText == null || plainText.trim().isEmpty()) {
-            UI.printError("Could not decode message. Aborting.");
+            UI.displayInvalidInputScreen("Could not decode message. Aborting.");
             return;
         }
 
@@ -104,7 +101,7 @@ public class SpyBot {
         // The first word in the message must be the destination location
         String[] words = plainText.trim().split("\\s+");
         if (words.length < 2) {
-            UI.printError("Message must have a destination and a body (at least 2 words).");
+            UI.displayInvalidInputScreen("Message must have a destination and a body (at least 2 words).");
             return;
         }
 
@@ -112,15 +109,17 @@ public class SpyBot {
         Agent  destination = registry.getAgentByLocation(destCode);
 
         if (destination == null) {
-            UI.printError("Unknown destination: '" + destCode + "'. Must be A, B, or C.");
+            UI.displayInvalidInputScreen("Unknown destination: '" + destCode + "'. Must be A, B, or C.");
             return;
         }
 
         // Can't send a message to yourself
         if (destCode.equals(sender.getLocation())) {
-            UI.printError("Destination cannot be your own location.");
+            UI.displayInvalidInputScreen("Destination cannot be your own location.");
             return;
         }
+
+        UI.displayDestinationScreen(destCode);
 
         // Everything after the destination word is the message body
         StringBuilder bodyBuilder = new StringBuilder();
@@ -132,31 +131,38 @@ public class SpyBot {
 
         Message message = new Message(sender, destination, body, morseRaw);
         msgManager.storeMessage(message);
+        UI.displayMessageRecordedScreen(body);
 
         // Show estimated travel time before moving (A* additional feature)
         long estimatedMs = SwiftBotController.estimateTravelMs(sender.getLocation(), destCode);
+        UI.displayDeliveryScreen(destination.getCallSign());
         UI.print("Estimated travel time to " + destCode + ": ~" + (estimatedMs / 1000) + " seconds.");
         UI.print("Message stored. Travelling to safe house " + destCode + "...");
         controller.travelTo(sender.getLocation(), destCode);
 
         // Blink red 3 times on arrival to signal a message is waiting
         controller.blinkUnderlights(LEDColour.RED, 3);
+        UI.displayAuthenticationScreen(
+                "RECEIVER VERIFICATION",
+                "Receiver: scan your QR code."
+        );
         UI.print("Arrived at " + destCode + ". Awaiting receiver authentication.");
-        UI.print("Receiver: scan your QR code.");
 
         String receiverQr = controller.scanQRCode();
         Agent  receiver   = Authenticator.authenticate(receiverQr, registry);
 
         // Make sure the receiver is actually at this location, not an imposter
         if (receiver == null || !receiver.getLocation().equalsIgnoreCase(destCode)) {
-            UI.printError("Receiver authentication failed. Message not delivered.");
+            UI.displayAuthenticationFailedScreen();
+            UI.displayInvalidInputScreen("Receiver authentication failed. Message not delivered.");
+            UI.displayReturnToSenderScreen();
             UI.print("Returning to origin...");
             controller.returnTo(destCode, sender.getLocation());
             return;
         }
 
-        UI.print("Receiver verified: " + receiver.getCallSign());
-        UI.printSeparator();
+        UI.displayAuthenticationSuccessScreen(receiver.getCallSign(), receiver.getLocation());
+        UI.displayDeliveryScreen(receiver.getCallSign());
         UI.print("Delivering via LED Morse code...");
         UI.print("Format: [sender_location] [body]");
 
@@ -169,6 +175,7 @@ public class SpyBot {
         logger.logMessage(message);
 
         // Wait 10 seconds at the destination before heading back
+        UI.displayReturnToSenderScreen();
         UI.print("Message delivered. Returning to origin in 10 seconds...");
         controller.waitSeconds(10);
         controller.returnTo(destCode, sender.getLocation());
@@ -179,17 +186,21 @@ public class SpyBot {
     private static void handleCheckMessages(SwiftBotController controller,
                                             AgentRegistry registry,
                                             MessageManager msgManager) {
-        UI.printSeparator();
-        UI.print("CHECK MESSAGES");
-        UI.print("Scan your QR code.");
+        UI.displayAuthenticationScreen(
+                "CHECK PENDING MESSAGES",
+                "Scan your QR code to continue."
+        );
 
         String qrData = controller.scanQRCode();
         Agent  agent  = Authenticator.authenticate(qrData, registry);
 
         if (agent == null) {
-            UI.printError("Authentication failed.");
+            UI.displayAuthenticationFailedScreen();
+            UI.displayInvalidInputScreen("Authentication failed.");
             return;
         }
+
+        UI.displayAuthenticationSuccessScreen(agent.getCallSign(), agent.getLocation());
 
         List<Message> pending = msgManager.getPendingFor(agent.getLocation());
 
@@ -208,8 +219,7 @@ public class SpyBot {
 
     // Replay mode - shows all messages sent during this session (A* additional feature)
     private static void handleReplay(Logger logger) {
-        UI.printSeparator();
-        UI.print("MESSAGE REPLAY MODE");
+        UI.displayReplayScreen();
 
         List<String> entries = logger.getEntries();
 
@@ -438,7 +448,7 @@ class MorseCodec {
 
                 Character ch = decodeMap.get(code);
                 if (ch == null) {
-                    UI.printError("Unknown Morse: '" + code + "' — skipping.");
+                    UI.printError("Unknown Morse: '" + code + "' - skipping.");
                 } else {
                     result.append(ch);
                 }
@@ -595,7 +605,7 @@ class MorseDelivery {
                 char ch = words[w].charAt(c);
                 String morse = codec.getMorse(ch);
                 if (morse == null) {
-                    UI.printError("Cannot encode '" + ch + "' — skipping.");
+                    UI.printError("Cannot encode '" + ch + "' - skipping.");
                     continue;
                 }
 

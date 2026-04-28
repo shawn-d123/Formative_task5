@@ -65,7 +65,7 @@ public class TerminationHandler {
 
         // enabling valid buttons Y and X
         swiftBot.enableButton(Button.X, () -> {
-            userChoice   = "X";
+            userChoice= "X";
             isChoiceMade = true;
         });
 

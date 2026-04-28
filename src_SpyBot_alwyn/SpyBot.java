@@ -1038,49 +1038,257 @@ class SwiftBotController {
 // ANSI colour codes are used for the banner, errors and success messages.
 class UI {
 
-    private static final String RESET = "\u001B[0m";
-    private static final String GREEN = "\u001B[32m";
-    private static final String RED   = "\u001B[31m";
-    private static final String CYAN  = "\u001B[36m";
+    private static final String RESET  = "\u001B[0m";
+    private static final String RED    = "\u001B[31m";
+    private static final String GREEN  = "\u001B[32m";
+    private static final String YELLOW = "\u001B[33m";
+    private static final String BLUE   = "\u001B[34m";
+    private static final String CYAN   = "\u001B[36m";
+    private static final String WHITE  = "\u001B[37m";
+
+    private static final String BORDER = "==============================================================";
+
+    static void displayWelcomeScreen() {
+        printHeader(CYAN, new String[]{
+                "   _____ ____  __   __ ____   ___ _____ ",
+                "  / ____|  _ \\ \\ \\ / /| __ ) / _ \\_   _|",
+                " | (___ | |_) | \\ V / |  _ \\| | | || |  ",
+                "  \\___ \\|  __/   | |  | |_) | |_| || |  ",
+                "  ____) | |      | |  |____/ \\___/ |_|  ",
+                " |_____/|_|      |_|                     "
+        }, "SPYBOT MISSION CONSOLE");
+        printLabelValue("System", "Secure Two-Way Morse Code Communication System");
+        printLabelValue("Task", "CS1814 Software Implementation - Task 5");
+        printLabelValue("Network", "Safe Houses A | B | C");
+        printLabelValue("Agents", "DELTA7@A | BRAVO9@B | ECHO3X@C");
+        System.out.println();
+    }
 
     static void printBanner() {
-        System.out.println(CYAN);
-        System.out.println("  +-------------------------------------------------+");
-        System.out.println("  |   ____              ____        _                |");
-        System.out.println("  |  / ___| _ __  _   _| __ )  ___ | |_             |");
-        System.out.println("  |  \\___ \\| '_ \\| | | |  _ \\ / _ \\| __|            |");
-        System.out.println("  |   ___) | |_) | |_| | |_) | (_) | |_             |");
-        System.out.println("  |  |____/| .__/ \\__, |____/ \\___/ \\__|            |");
-        System.out.println("  |        |_|    |___/                              |");
-        System.out.println("  +-------------------------------------------------+");
-        System.out.println(RESET);
-        System.out.println("  Secure Two-Way Morse Code Communication System");
-        System.out.println("  CS1814 Software Implementation - Task 5");
-        System.out.println("  Network: Safe Houses A | B | C");
-        System.out.println("  Agents:  DELTA7@A  |  BRAVO9@B  |  ECHO3X@C");
-        System.out.println("  =================================================\n");
+        displayWelcomeScreen();
+    }
+
+    static void displayMainMenuScreen() {
+        printHeader(CYAN, new String[]{
+                "  __  __    _    ___ _   _ ",
+                " |  \\/  |  / \\  |_ _| \\ | |",
+                " | |\\/| | / _ \\  | ||  \\| |",
+                " | |  | |/ ___ \\ | || |\\  |",
+                " |_|  |_/_/   \\_\\___|_| \\_|"
+        }, "SPYBOT MAIN MENU");
+        printMenuOption('A', "Send a message");
+        printMenuOption('B', "Check pending messages");
+        printMenuOption('Y', "Replay message log");
+        printMenuOption('X', "Exit");
+        System.out.println(YELLOW + "  Press a SwiftBot button: A / B / Y / X" + RESET);
+        System.out.println();
     }
 
     static void printMainMenu() {
-        System.out.println("\n  +--------------------------------+");
-        System.out.println("  |       SPYBOT MAIN MENU         |");
-        System.out.println("  +--------------------------------+");
-        System.out.println("  |  [A]  Send a message           |");
-        System.out.println("  |  [B]  Check pending messages   |");
-        System.out.println("  |  [Y]  Replay message log       |");
-        System.out.println("  |  [X]  Exit                     |");
-        System.out.println("  +--------------------------------+");
+        displayMainMenuScreen();
     }
 
-    static void print(String msg)        { System.out.println("  " + msg); }
-    static void printInline(String msg)  { System.out.print(msg); }
-    static void printSeparator()         { System.out.println("  --------------------------------------------------"); }
+    static void displayReplayScreen() {
+        printHeader(BLUE, new String[]{
+                "  ____  _____ ____  _        _ __   __",
+                " |  _ \\| ____|  _ \\| |      / \\\\ \\ / /",
+                " | |_) |  _| | |_) | |     / _ \\\\ V / ",
+                " |  _ <| |___|  __/| |___ / ___ \\| |  ",
+                " |_| \\_\\_____|_|   |_____/_/   \\_\\_|  "
+        }, "MESSAGE REPLAY MODE");
+    }
+
+    static void displayAuthenticationScreen(String phase, String prompt) {
+        printHeader(CYAN, new String[]{
+                "     _   _   _ _____ _   _ ",
+                "    / \\ | | | |_   _| | | |",
+                "   / _ \\| | | | | | | |_| |",
+                "  / ___ \\ |_| | | | |  _  |",
+                " /_/   \\_\\___/  |_| |_| |_|"
+        }, "AUTHENTICATION IN PROGRESS");
+        printLabelValue("Stage", phase);
+        printLabelValue("Next", prompt);
+        System.out.println();
+    }
+
+    static void displayAuthenticationSuccessScreen(String callSign, String location) {
+        printHeader(GREEN, new String[]{
+                "  ____  _   _  ____ ____ _____ ____ ____ ",
+                " / ___|| | | |/ ___/ ___| ____/ ___/ ___|",
+                " \\___ \\| | | | |  | |   |  _| \\___ \\___ \\",
+                "  ___) | |_| | |__| |___| |___ ___) |__) |",
+                " |____/ \\___/ \\____\\____|_____|____/____/ "
+        }, "AUTHENTICATION SUCCESSFUL");
+        printLabelValue("Call Sign", callSign);
+        printLabelValue("Safe House", location.toUpperCase());
+        System.out.println();
+    }
+
+    static void displayAuthenticationFailedScreen() {
+        printHeader(RED, new String[]{
+                "  _____ _    ___ _     _____ ____  ",
+                " |  ___/ \\  |_ _| |   | ____|  _ \\ ",
+                " | |_ / _ \\  | || |   |  _| | | | |",
+                " |  _/ ___ \\ | || |___| |___| |_| |",
+                " |_|/_/   \\_\\___|_____|_____|____/ "
+        }, "AUTHENTICATION FAILED");
+        printLabelValue("Action", "Check QR details and try again.");
+        System.out.println();
+    }
+
+    static void displayMorseInputInstructionsScreen() {
+        printHeader(CYAN, new String[]{
+                "  __  __  ___  ____  ____  _____ ",
+                " |  \\/  |/ _ \\|  _ \\/ ___|| ____|",
+                " | |\\/| | | | | |_) \\___ \\|  _|  ",
+                " | |  | | |_| |  _ < ___) | |___ ",
+                " |_|  |_|\\___/|_| \\_\\____/|_____|"
+        }, "MORSE CODE INPUT INSTRUCTIONS");
+        print( "X = dot (.)    Y = dash (-)");
+        print( "A = end of character    B = end of word");
+        print( "End of message: enter Morse for 0 (-----), then press A");
+        print( "First word must be destination: A, B, or C");
+        print( "Cancel input: press A twice with no symbol entered");
+        System.out.println();
+    }
+
+    static void displayMessageRecordedScreen(String message) {
+        printHeader(GREEN, new String[]{
+                "  __  __ _____ ____ ____    _    ____ _____ ",
+                " |  \\/  | ____/ ___/ ___|  / \\  / ___| ____|",
+                " | |\\/| |  _| \\___ \\___ \\ / _ \\| |  _|  _|  ",
+                " | |  | | |___ ___) |__) / ___ \\ |_| | |___ ",
+                " |_|  |_|_____|____/____/_/   \\_\\____|_____|"
+        }, "MESSAGE RECORDED");
+        printLabelValue("Captured Body", message);
+        System.out.println();
+    }
+
+    static void displayMessageProcessingScreen() {
+        printHeader(YELLOW, new String[]{
+                "  ____  ____   ___   ____ _____ ____ ____ ",
+                " |  _ \\|  _ \\ / _ \\ / ___| ____/ ___/ ___|",
+                " | |_) | |_) | | | | |   |  _| \\___ \\___ \\",
+                " |  __/|  _ <| |_| | |___| |___ ___) |__) |",
+                " |_|   |_| \\_\\\\___/ \\____|_____|____/____/ "
+        }, "MESSAGE PROCESSING IN PROGRESS");
+        printLabelValue("Status", "Decoding Morse and validating payload...");
+        System.out.println();
+    }
+
+    static void displayDestinationScreen(String destination) {
+        printHeader(BLUE, new String[]{
+                "  ____  _____ ____ _____ ___ _   _    _  _____ ___ ___  _   _ ",
+                " |  _ \\| ____/ ___|_   _|_ _| \\ | |  / \\|_   _|_ _/ _ \\| \\ | |",
+                " | | | |  _| \\___ \\ | |  | ||  \\| | / _ \\ | |  | | | | |  \\| |",
+                " | |_| | |___ ___) || |  | || |\\  |/ ___ \\| |  | | |_| | |\\  |",
+                " |____/|_____|____/ |_| |___|_| \\_/_/   \\_\\_| |___\\___/|_| \\_|"
+        }, "DESTINATION EXTRACTION COMPLETE");
+        printLabelValue("Destination", destination.toUpperCase());
+        System.out.println();
+    }
+
+    static void displayDeliveryScreen(String receiver) {
+        printHeader(YELLOW, new String[]{
+                "  ____  _____ _     _____ _   _ _____ ______   __",
+                " |  _ \\| ____| |   |_   _| \\ | | ____|  _ \\ \\ / /",
+                " | | | |  _| | |     | | |  \\| |  _| | |_) \\ V / ",
+                " | |_| | |___| |___  | | | |\\  | |___|  _ < | |  ",
+                " |____/|_____|_____| |_| |_| \\_|_____|_| \\_\\|_|  "
+        }, "MESSAGE DELIVERY IN PROGRESS");
+        if (receiver != null && !receiver.trim().isEmpty()) {
+            printLabelValue("Receiver", receiver);
+        }
+        System.out.println();
+    }
+
+    static void displayReturnToSenderScreen() {
+        printHeader(YELLOW, new String[]{
+                "  ____  _____ _____ _   _ ____  _   _ ",
+                " |  _ \\| ____|_   _| | | |  _ \\| \\ | |",
+                " | |_) |  _|   | | | | | | |_) |  \\| |",
+                " |  _ <| |___  | | | |_| |  _ <| |\\  |",
+                " |_| \\_\\_____| |_|  \\___/|_| \\_\\_| \\_|"
+        }, "RETURN TO SENDER IN PROGRESS");
+        printLabelValue("Status", "SwiftBot is navigating back to sender.");
+        System.out.println();
+    }
+
+    static void displayLogSavedScreen(String logFilePath) {
+        printHeader(GREEN, new String[]{
+                "  _     ___   ____ ",
+                " | |   / _ \\ / ___|",
+                " | |  | | | | |  _ ",
+                " | |__| |_| | |_| |",
+                " |_____\\___/ \\____|"
+        }, "LOG FILE SAVED");
+        printLabelValue("Path", logFilePath);
+        System.out.println();
+    }
+
+    static void displayInvalidInputScreen(String message) {
+        printHeader(RED, new String[]{
+                "  ___ _   _ ____  _   _ _____ ",
+                " |_ _| \\ | |  _ \\| | | |_   _|",
+                "  | ||  \\| | |_) | | | | | |  ",
+                "  | || |\\  |  __/| |_| | | |  ",
+                " |___|_| \\_|_|    \\___/  |_|  "
+        }, "INPUT ERROR");
+        printLabelValue("Details", message);
+        System.out.println();
+    }
+
+    static void displayTerminationScreen() {
+        printHeader(RED, new String[]{
+                "  _____ _____ ____  __  __ ___ _   _    _  _____ _____ ",
+                " |_   _| ____|  _ \\|  \\/  |_ _| \\ | |  / \\|_   _| ____|",
+                "   | | |  _| | |_) | |\\/| || ||  \\| | / _ \\ | | |  _|  ",
+                "   | | | |___|  _ <| |  | || || |\\  |/ ___ \\| | | |___ ",
+                "   |_| |_____|_| \\_\\_|  |_|___|_| \\_/_/   \\_\\_| |_____|"
+        }, "TERMINATION IN PROGRESS");
+        printLabelValue("Status", "SpyBot shutting down. Stay covert.");
+        System.out.println();
+    }
+
+    static void print(String msg) {
+        System.out.println(WHITE + "  " + msg + RESET);
+    }
+
+    static void printInline(String msg) {
+        System.out.print(WHITE + msg + RESET);
+    }
+
+    static void printSeparator() {
+        printBorder(CYAN);
+    }
 
     static void printError(String msg) {
-        System.out.println(RED + "  [ERROR] " + msg + RESET);
+        System.out.println(RED + "  [INPUT ERROR] " + msg + RESET);
     }
 
     static void printSuccess(String msg) {
         System.out.println(GREEN + "  [OK] " + msg + RESET);
+    }
+
+    private static void printHeader(String colour, String[] asciiLines, String status) {
+        System.out.println();
+        printBorder(colour);
+        for (String line : asciiLines) {
+            System.out.println(colour + "  " + line + RESET);
+        }
+        System.out.println(colour + "  " + status + RESET);
+        printBorder(colour);
+    }
+
+    private static void printBorder(String colour) {
+        System.out.println(colour + "  " + BORDER + RESET);
+    }
+
+    private static void printLabelValue(String label, String value) {
+        System.out.println(WHITE + "  " + label + ": " + value + RESET);
+    }
+
+    private static void printMenuOption(char button, String action) {
+        System.out.println(WHITE + "  [" + button + "]  " + action + RESET);
     }
 }

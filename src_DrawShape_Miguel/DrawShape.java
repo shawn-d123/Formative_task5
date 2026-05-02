@@ -117,7 +117,7 @@ public class DrawShape {
 
                 // If there are more shapes to draw, reverse 15 cm to give space
                 if (i < commands.size() - 1 && !xPressed.get()) {
-                    System.out.println("Moving back 15 cm before next shape...");
+                    System.out.println(YELLOW + "Moving back 15 cm before next shape..." + RESET);
                     drawer.moveBackward15cm();
                     Thread.sleep(1000);
                 }
@@ -368,6 +368,11 @@ class ShapeParser {
 // The calibration constants at the top will need adjusting for your specific robot.
 class ShapeDrawer {
 
+    private static final String RESET      = "[0m";
+    private static final String GREEN_TEXT = "[32m";
+    private static final String CYAN       = "[36m";
+    private static final String YELLOW     = "[33m";
+
     // Tune these values by running the robot and measuring the results
     private static final int    DRIVE_SPEED = 60;   // wheel speed for straight lines (0-100)
     private static final double MS_PER_CM   = 42.0; // milliseconds to travel 1 cm at DRIVE_SPEED
@@ -396,13 +401,13 @@ class ShapeDrawer {
     // Draws a square by going forward and turning 90 degrees, four times
     private void drawSquare(int sideLen) {
         setUnderlights(GREEN);
-        System.out.println("Drawing " + sideLen + " cm square...");
+        System.out.println(GREEN_TEXT + "Drawing " + sideLen + " cm square..." + RESET);
         for (int i = 1; i <= 4; i++) {
-            System.out.println("  Side " + i + " of 4 - forward " + sideLen + " cm");
+            System.out.println(GREEN_TEXT + "  Side " + i + " of 4 - forward " + sideLen + " cm" + RESET);
             driveForward(sideLen);
             pause(500);
             if (i < 4) {
-                System.out.println("  Turning 90 degrees right");
+                System.out.println(GREEN_TEXT + "  Turning 90 degrees right" + RESET);
                 turnRight(90);
                 pause(300);
             }
@@ -416,17 +421,17 @@ class ShapeDrawer {
         int[]    sides  = cmd.getSides();
         double[] angles = cmd.getAngles();
         setUnderlights(BLUE);
-        System.out.println("Drawing triangle with sides " + sides[0] + ", " + sides[1] + ", " + sides[2] + " cm");
-        System.out.printf("Interior angles: %.2f deg, %.2f deg, %.2f deg%n",
+        System.out.println(CYAN + "Drawing triangle with sides " + sides[0] + ", " + sides[1] + ", " + sides[2] + " cm" + RESET);
+        System.out.printf(CYAN + "Interior angles: %.2f deg, %.2f deg, %.2f deg" + RESET + "%n",
             angles[0], angles[1], angles[2]);
 
         for (int i = 0; i < 3; i++) {
-            System.out.println("  Side " + (i + 1) + " of 3 - forward " + sides[i] + " cm");
+            System.out.println(CYAN + "  Side " + (i + 1) + " of 3 - forward " + sides[i] + " cm" + RESET);
             driveForward(sides[i]);
             pause(500);
             if (i < 2) {
                 double exterior = 180.0 - angles[(i + 1) % 3];
-                System.out.printf("  Turning %.2f degrees right%n", exterior);
+                System.out.printf(CYAN + "  Turning %.2f degrees right" + RESET + "%n", exterior);
                 turnRight(exterior);
                 pause(300);
             }
@@ -467,7 +472,7 @@ class ShapeDrawer {
 
     // Blinks green three times to let the user know the shape is finished
     private void signalComplete() {
-        System.out.println("Shape complete - blinking green.");
+        System.out.println(GREEN_TEXT + "Shape complete - blinking green." + RESET);
         for (int i = 0; i < 3; i++) {
             setUnderlights(GREEN);
             pause(300);

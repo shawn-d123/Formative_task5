@@ -73,10 +73,10 @@ public class DrawShape {
         logger        = new Logger();
         sessionShapes = new ArrayList<>();
 
-        System.out.println("=======================================");
-        System.out.println("    SWIFTBOT - DRAW SHAPE (Task 6)   ");
-        System.out.println("=======================================");
-        System.out.println("Press X at any time to quit.");
+        System.out.println(CYAN + "==========================================");
+        System.out.println("       SWIFTBOT - DRAW SHAPE (Task 6)     ");
+        System.out.println("==========================================" + RESET);
+        System.out.println(YELLOW + "Press X at any time to quit." + RESET);
         System.out.println();
 
         // Keep running until the user presses X

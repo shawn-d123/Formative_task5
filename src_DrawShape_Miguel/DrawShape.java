@@ -82,10 +82,10 @@ public class DrawShape {
         // Keep running until the user presses X
         while (!xPressed.get()) {
 
-            System.out.println("------------------------------------------");
-            System.out.println("Scan a QR code to draw a shape.");
-            System.out.println("Press X to quit.");
-            System.out.println("------------------------------------------");
+            System.out.println(CYAN + "------------------------------------------");
+            System.out.println(WHITE + "  Scan a QR code to draw a shape.");
+            System.out.println(YELLOW + "  Press X to quit." + RESET);
+            System.out.println(CYAN + "------------------------------------------" + RESET);
 
             registerXButton();
 
@@ -159,7 +159,7 @@ public class DrawShape {
         String result = null;
 
         while (!xPressed.get() && (result == null || result.trim().isEmpty())) {
-            System.out.println("Press A to scan QR code, or X to quit.");
+            System.out.println(YELLOW + "Press A to scan QR code, or X to quit." + RESET);
 
             swiftBot.disableAllButtons();
             qrReady.set(false);

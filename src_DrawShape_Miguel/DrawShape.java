@@ -92,7 +92,7 @@ public class DrawShape {
             String scanned = waitForQRCode();
             if (scanned == null) break;
 
-            System.out.println("QR scanned: " + scanned);
+            System.out.println(GREEN_TEXT + "QR scanned: " + WHITE + scanned + RESET);
 
             List<ShapeCommand> commands = parseQRContent(scanned);
             if (commands.isEmpty()) {
@@ -106,14 +106,14 @@ public class DrawShape {
 
                 ShapeCommand cmd = commands.get(i);
                 System.out.println();
-                System.out.println("Shape " + (i + 1) + " of " + commands.size() + ": " + cmd.describe());
+                System.out.println(CYAN + "Shape " + (i + 1) + " of " + commands.size() + ": " + WHITE + cmd.describe() + RESET);
 
                 long startTime  = System.currentTimeMillis();
                 drawer.draw(cmd);
                 long durationMs = System.currentTimeMillis() - startTime;
 
                 sessionShapes.add(new ShapeRecord(cmd, durationMs));
-                System.out.println("Done. Took " + durationMs + " ms.");
+                System.out.println(GREEN_TEXT + "Done. Took " + durationMs + " ms." + RESET);
 
                 // If there are more shapes to draw, reverse 15 cm to give space
                 if (i < commands.size() - 1 && !xPressed.get()) {
@@ -146,7 +146,7 @@ public class DrawShape {
             long now = System.currentTimeMillis();
             if (now - lastPressTime < DEBOUNCE_DELAY) return;
             lastPressTime = now;
-            System.out.println("X pressed - stopping...");
+            System.out.println(RED_TEXT + "X pressed - stopping..." + RESET);
             xPressed.set(true);
             qrReady.set(true); // wake up the QR wait loop if it is sleeping
         });
@@ -175,7 +175,7 @@ public class DrawShape {
                 long now = System.currentTimeMillis();
                 if (now - lastPressTime < DEBOUNCE_DELAY) return;
                 lastPressTime = now;
-                System.out.println("X pressed - stopping...");
+                System.out.println(RED_TEXT + "X pressed - stopping..." + RESET);
                 xPressed.set(true);
                 qrReady.set(true);
             });

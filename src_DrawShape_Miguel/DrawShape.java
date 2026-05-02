@@ -127,15 +127,15 @@ public class DrawShape {
         // Clean up and save the log when the session ends
         swiftBot.disableAllButtons();
         System.out.println();
-        System.out.println("=== Session ended ===");
+        System.out.println(CYAN + "=== Session ended ===" + RESET);
         if (sessionShapes.isEmpty()) {
-            System.out.println("No shapes were drawn this session.");
+            System.out.println(YELLOW + "No shapes were drawn this session." + RESET);
         } else {
-            System.out.println("Total shapes drawn: " + sessionShapes.size());
+            System.out.println(WHITE + "Total shapes drawn : " + GREEN_TEXT + sessionShapes.size() + RESET);
             String logPath = logger.writeSessionLog(sessionShapes);
-            System.out.println("Log saved to: " + logPath);
+            System.out.println(WHITE + "Log saved to       : " + GREEN_TEXT + logPath + RESET);
         }
-        System.out.println("Goodbye!");
+        System.out.println(CYAN + "Goodbye!" + RESET);
     }
 
     // Registers the X button so the user can quit at any time.

@@ -19,6 +19,13 @@ public class DrawShape {
 
     private static final int MAX_SHAPES_PER_QR = 5;
 
+    private static final String RESET      = "[0m";
+    private static final String WHITE      = "[37m";
+    private static final String GREEN_TEXT = "[32m";
+    private static final String RED_TEXT   = "[31m";
+    private static final String CYAN       = "[36m";
+    private static final String YELLOW     = "[33m";
+
     // Stops a single button press from firing more than once
     private static volatile long lastPressTime  = 0;
     private static final long    DEBOUNCE_DELAY = 250;

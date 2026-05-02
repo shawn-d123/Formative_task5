@@ -65,7 +65,7 @@ public class DrawShape {
         try {
             swiftBot = SwiftBotAPI.INSTANCE;
         } catch (Exception e) {
-            System.out.println("ERROR: Could not initialise SwiftBot: " + e.getMessage());
+            System.out.println(RED_TEXT + "ERROR: Could not initialise SwiftBot: " + e.getMessage() + RESET);
             return;
         }
 
@@ -96,7 +96,7 @@ public class DrawShape {
 
             List<ShapeCommand> commands = parseQRContent(scanned);
             if (commands.isEmpty()) {
-                System.out.println("ERROR: No valid shape commands found. Please try again.");
+                System.out.println(RED_TEXT + "ERROR: No valid shape commands found. Please try again." + RESET);
                 continue;
             }
 
@@ -193,11 +193,11 @@ public class DrawShape {
                 java.awt.image.BufferedImage img = swiftBot.getQRImage();
                 result = swiftBot.decodeQRImage(img);
                 if (result == null || result.trim().isEmpty()) {
-                    System.out.println("ERROR: QR not detected. Hold the code steady and try again.");
+                    System.out.println(RED_TEXT + "ERROR: QR not detected. Hold the code steady and try again." + RESET);
                     result = null;
                 }
             } catch (Exception e) {
-                System.out.println("ERROR: Camera problem - " + e.getMessage());
+                System.out.println(RED_TEXT + "ERROR: Camera problem - " + e.getMessage() + RESET);
                 result = null;
             }
         }
@@ -212,8 +212,8 @@ public class DrawShape {
         String[] tokens = raw.trim().split("&");
 
         if (tokens.length > MAX_SHAPES_PER_QR) {
-            System.out.println("WARNING: QR has " + tokens.length
-                + " shapes but only the first " + MAX_SHAPES_PER_QR + " will be used.");
+            System.out.println(YELLOW + "WARNING: QR has " + tokens.length
+                + " shapes but only the first " + MAX_SHAPES_PER_QR + " will be used." + RESET);
         }
 
         int limit = Math.min(tokens.length, MAX_SHAPES_PER_QR);
@@ -222,7 +222,7 @@ public class DrawShape {
             try {
                 result.add(ShapeParser.parse(token));
             } catch (IllegalArgumentException e) {
-                System.out.println("Skipping \"" + token + "\": " + e.getMessage());
+                System.out.println(YELLOW + "Skipping \"" + token + "\": " + e.getMessage() + RESET);
             }
         }
         return result;
